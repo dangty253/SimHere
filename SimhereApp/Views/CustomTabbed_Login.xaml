@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="SimhereApp.Portable.Views.CustomTabbed_Login"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:SimhereApp.Portable.Controls"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:views="clr-namespace:SimhereApp.Portable.Views"
+             ios:Page.UseSafeArea="true"
+             >
+    <ContentPage.Content>
+        <Grid Padding="0"
+              BackgroundColor="#F6F6F8"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              VerticalOptions="FillAndExpand"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <telerikPrimitives:RadBorder x:Name="telerik_login"
+                                         Grid.Row="1"
+                                         Grid.Column="0"
+                                         Padding="0"
+                                         BackgroundColor="#E8E8E8"
+                                         BorderColor="Orange"
+                                         BorderThickness="0,0,0,2"
+                                         CornerRadius="0"
+                                         HorizontalOptions="FillAndExpand"
+                                         >
+                <Button Padding="0"
+                        BackgroundColor="Transparent"
+                        Clicked="click_login"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Đăng nhập"
+                        TextColor="#444444"
+                        />
+            </telerikPrimitives:RadBorder>
+
+            <telerikPrimitives:RadBorder x:Name="telerik_dangky"
+                                         Grid.Row="1"
+                                         Grid.Column="1"
+                                         Padding="0"
+                                         BackgroundColor="#E8E8E8"
+                                         BorderColor="Orange"
+                                         BorderThickness="0,0,0,0"
+                                         CornerRadius="0"
+                                         HorizontalOptions="FillAndExpand"
+                                         >
+                <Button Padding="0"
+                        BackgroundColor="Transparent"
+                        Clicked="click_dangky"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Đăng ký"
+                        TextColor="#444444"
+                        />
+            </telerikPrimitives:RadBorder>
+
+
+            <ScrollView Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="1"
+                        >
+                <StackLayout Padding="0">
+                    <views:DangkyPage x:Name="dangky" IsVisible="False" />
+                    <views:LoginPage x:Name="login" IsVisible="true" />
+                </StackLayout>
+            </ScrollView>
+            <control:PopUpLoading x:Name="gridLoading"
+                                  Grid.RowSpan="3"
+                                  Grid.ColumnSpan="2"
+                                  IsVisible="false"
+                                  />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

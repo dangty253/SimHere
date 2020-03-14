@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.SimDetail2"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    x:Name="SimDetailName"
+    Title="Chi tiết Sim"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:HideEmailConverter x:Key="HideEmailConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollView
+                    x:Name="MainScrollView"
+                    Grid.Row="0"
+                    Padding="0,0,0,64"
+                    IsVisible="false">
+                    <StackLayout
+                        BackgroundColor="White"
+                        Spacing="5"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                x:Name="stackImage"
+                                LayoutChanged="Handle_LayoutChanged"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Image x:Name="SimImage" Source="sim1.jpg" />
+                            </StackLayout>
+                            <Grid
+                                x:Name="GridTitle"
+                                Padding="10,5"
+                                ColumnSpacing="5"
+                                VerticalOptions="End">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Spacing="3">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding Sim.DisplayNumber}"
+                                        TextColor="#333333" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Sim.StatusFormat}"
+                                        TextColor="#333333" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Small"
+                                            Text="{Binding Sim.CreatedOn, StringFormat='{0:dd/MM/yyyy}'}"
+                                            TextColor="Red" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding Sim.TimeAgo}"
+                                            TextColor="#444444" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <ImageButton
+                                    x:Name="BtnFollow"
+                                    Grid.Column="1"
+                                    Padding="5"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    Aspect="AspectFit"
+                                    BackgroundColor="Transparent"
+                                    Clicked="BtnFollow_Clicked"
+                                    IsVisible="{Binding IsFollow, Converter={StaticResource BoolToBoolConverter}}"
+                                    Source="heart.png"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="End" />
+                                <ImageButton
+                                    x:Name="BtnUnFollow"
+                                    Grid.Column="1"
+                                    Padding="5"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    Aspect="AspectFit"
+                                    BackgroundColor="Transparent"
+                                    Clicked="BtnFollow_Clicked"
+                                    IsVisible="{Binding IsFollow}"
+                                    Source="heart_check.png"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="End" />
+                            </Grid>
+                        </Grid>
+
+                        <Grid
+                            Padding="10"
+                            BackgroundColor="White"
+                            ColumnSpacing="10">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ViewProfile_Clicked" />
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <pluginImageCircle:CircleImage
+                                x:Name="img_avatar"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                WidthRequest="70"
+                                HeightRequest="70"
+                                Aspect="AspectFill"
+                                BorderColor="#eeeeee"
+                                BorderThickness="2"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                            <StackLayout Grid.Column="1" Spacing="3">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Sim.Owner.FullName}"
+                                    TextColor="#333333" />
+                                <StackLayout
+                                    x:Name="address"
+                                    IsVisible="false"
+                                    Orientation="Horizontal"
+                                    Spacing="5">
+                                    <Label
+                                        WidthRequest="20"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="Small"
+                                        HorizontalTextAlignment="Center"
+                                        Text="&#xf3c5;"
+                                        TextColor="#444444"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding Sim.Owner.Address}"
+                                        TextColor="#444444"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <StackLayout IsVisible="{Binding Sim.Owner.Email, Converter={StaticResource HideEmailConverter}}" Orientation="Horizontal">
+                                    <Label
+                                        WidthRequest="20"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="Small"
+                                        HorizontalTextAlignment="Center"
+                                        Text="&#xf0e0;"
+                                        TextColor="#444444"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding Sim.Owner.Email}"
+                                        TextColor="Blue"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        WidthRequest="20"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="Small"
+                                        HorizontalTextAlignment="Center"
+                                        Text="&#xf3cd;"
+                                        TextColor="#444444"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding Sim.Owner.PhoneNumber}"
+                                        TextColor="DarkGreen"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+
+                        <StackLayout HeightRequest="3" BackgroundColor="#eeeeee" />
+
+                        <StackLayout BackgroundColor="White" IsVisible="{Binding HasDetail}">
+                            <Label
+                                Margin="10,5"
+                                FontSize="16"
+                                Text="{Binding Sim.Description}"
+                                TextColor="#444444" />
+                            <StackLayout HeightRequest="3" BackgroundColor="#eeeeee" />
+                        </StackLayout>
+
+                        <StackLayout Padding="10" BackgroundColor="White">
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="Số sim : "
+                                    TextColor="#444444" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding Sim.SimNumber}"
+                                    HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="Giá : "
+                                    TextColor="#444444" />
+                                <Label
+                                    x:Name="lblPrice"
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="Nhà mạng : "
+                                    TextColor="#444444"
+                                    HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="Center" />
+                                <Image
+                                    HeightRequest="30"
+                                    Source="{Binding Sim.Carrier.Logo}"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="Loại sim : "
+                                    TextColor="#444444" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding NumberTypesFormat}"
+                                    HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="Loại thuê bao : "
+                                    TextColor="#444444" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding Sim.SubcribeType.Name}"
+                                    HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+                <controls:PopUpLoading x:Name="gridLoading" Grid.RowSpan="2" />
+            </Grid>
+            <StackLayout
+                x:Name="gridBtn"
+                Margin="5"
+                AbsoluteLayout.LayoutBounds="0,1,1,64"
+                AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional"
+                IsVisible="false"
+                Orientation="Horizontal"
+                Spacing="0"
+                HorizontalOptions="End">
+                <Frame
+                    HasShadow="False"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#0084ff"
+                        Command="{Binding Source={x:Reference SimDetailName}, Path=BindingContext.CallCommand}"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf2a0;"
+                        TextColor="White" />
+                </Frame>
+                <Frame
+                    HasShadow="False"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#b78909"
+                        Command="{Binding Source={x:Reference SimDetailName}, Path=BindingContext.SendMessageCommand}"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeRegular}"
+                        FontSize="18"
+                        Text="&#xf4ad;"
+                        TextColor="White" />
+                </Frame>
+                <Frame
+                    HasShadow="False"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#3F51B5"
+                        Command="{Binding Source={x:Reference SimDetailName}, Path=BindingContext.OrderCommand}"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf217;"
+                        TextColor="White" />
+                </Frame>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

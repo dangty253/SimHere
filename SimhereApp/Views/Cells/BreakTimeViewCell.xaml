@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="SimhereApp.Portable.Views.Cells.BreakTimeViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ViewCell.View>
+        <StackLayout Padding="5">
+            <Label
+                FontSize="13"
+                HorizontalTextAlignment="Center"
+                Rotation="180"
+                Text="{Binding CreatedOn, StringFormat='{0:dd/MM/yyyy}'}"
+                TextColor="Gray" />
+        </StackLayout>
+    </ViewCell.View>
+</ViewCell>

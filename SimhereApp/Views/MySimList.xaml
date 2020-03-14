@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.MySimList"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    Title="Sim của tôi"
+    ios:Page.UseSafeArea="true">
+    <ContentPage.BindingContext>
+        <viewModels:MySimListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:SimListNullToVisibleLblEmptyConverter x:Key="SimListNullToVisibleLblEmptyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackLayout x:Name="stackLayoutScrollView" Grid.Row="0">
+                    <ScrollView
+                        x:Name="ScrollViewStatus"
+                        HorizontalScrollBarVisibility="Never"
+                        BackgroundColor="White"
+                        Orientation="Horizontal">
+                        <StackLayout
+                            x:Name="StackLayoutButtonStatusGroup"
+                            Padding="10,0"
+                            Orientation="Horizontal"
+                            Spacing="3"
+                            HorizontalOptions="Center">
+                            <telerikInput:RadButton
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                BorderColor="Blue"
+                                BorderThickness="0,0,0,3"
+                                Clicked="ChangeStatus_Clicked"
+                                Command="{Binding LoadByStatusCommand}"
+                                Text="Tất cả"
+                                TextColor="#444444" />
+                            <telerikInput:RadButton
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                BorderColor="Blue"
+                                BorderThickness="0"
+                                Clicked="ChangeStatus_Clicked"
+                                Command="{Binding LoadByStatusCommand}"
+                                CommandParameter="1"
+                                Text="Đang bán"
+                                TextColor="#444444" />
+                            <telerikInput:RadButton
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                BorderColor="Blue"
+                                BorderThickness="0"
+                                Clicked="ChangeStatus_Clicked"
+                                Command="{Binding LoadByStatusCommand}"
+                                CommandParameter="4"
+                                Text="Đã đặt"
+                                TextColor="#444444" />
+                            <telerikInput:RadButton
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                BorderColor="Blue"
+                                BorderThickness="0"
+                                Clicked="ChangeStatus_Clicked"
+                                Command="{Binding LoadByStatusCommand}"
+                                CommandParameter="0"
+                                Text="Chưa bán"
+                                TextColor="#444444" />
+                            <telerikInput:RadButton
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                BorderColor="Blue"
+                                BorderThickness="0"
+                                Clicked="ChangeStatus_Clicked"
+                                Command="{Binding LoadByStatusCommand}"
+                                CommandParameter="2"
+                                Text="Đã bán"
+                                TextColor="#444444" />
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+                <StackLayout Grid.Row="1">
+                    <ListView
+                        x:Name="SimListView"
+                        Margin="0,2,0,0"
+                        BackgroundColor="#F2F2F2"
+                        HasUnevenRows="True"
+                        IsPullToRefreshEnabled="True"
+                        IsRefreshing="{Binding IsRefreshing}"
+                        ItemsSource="{Binding Data}"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        SelectionMode="None"
+                        SeparatorVisibility="None"
+                        VerticalOptions="FillAndExpand">
+                        <ListView.Header>
+                            <StackLayout>
+                                <controls:ExtendedFrame Padding="10,0,10,0" CornerRadius="5">
+                                    <controls:ExtendedFrame.BackgroundColor>
+                                        <OnPlatform x:TypeArguments="Color" iOS="Transparent" />
+                                    </controls:ExtendedFrame.BackgroundColor>
+                                    <controls:ExtendedFrame.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness" Android="10,5,10,5" />
+                                    </controls:ExtendedFrame.Margin>
+                                    <SearchBar
+                                        x:Name="SearchBarHome"
+                                        CancelButtonColor="White"
+                                        FontSize="14"
+                                        Keyboard="Telephone"
+                                        Placeholder="Nhập số cần tìm kiếm"
+                                        SearchCommand="{Binding SearchBar_Search_Command}"
+                                        Text="{Binding SearchValue, Mode=TwoWay}"
+                                        TextColor="#333333">
+                                        <SearchBar.BackgroundColor>
+                                            <OnPlatform
+                                                x:TypeArguments="Color"
+                                                Android="White"
+                                                iOS="Transparent" />
+                                        </SearchBar.BackgroundColor>
+                                        <SearchBar.PlaceholderColor>
+                                            <OnPlatform
+                                                x:TypeArguments="Color"
+                                                Android="Gray"
+                                                iOS="Gray" />
+                                        </SearchBar.PlaceholderColor>
+                                    </SearchBar>
+                                </controls:ExtendedFrame>
+                                <Label
+                                    x:Name="lbEmptyList"
+                                    Margin="0,10,0,0"
+                                    HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding IsEmptyList}"
+                                    Text="Bạn chưa có sim nào trong danh sách"
+                                    TextColor="#444444" />
+                            </StackLayout>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <telerikPrimitives:RadBorder
+                                        Padding="10,5"
+                                        BackgroundColor="White"
+                                        BorderColor="#eeeeee"
+                                        BorderThickness="0,0,0,1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="25" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                Grid.Column="0"
+                                                WidthRequest="55"
+                                                HeightRequest="35"
+                                                Source="{Binding CarrierId, Converter={StaticResource CarrierLogoConverter}}" />
+                                            <StackLayout Grid.Column="1">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="16"
+                                                    Text="{Binding DisplayNumber}"
+                                                    TextColor="DarkGreen" />
+                                                <Label
+                                                    FontSize="Small"
+                                                    Text="{Binding SimNumber}"
+                                                    TextColor="Black" />
+                                                <Label
+                                                    FontSize="15"
+                                                    Text="{Binding Price, StringFormat='{0:0,0 đ}'}"
+                                                    TextColor="#333333" />
+                                            </StackLayout>
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                WidthRequest="25"
+                                                HeightRequest="25"
+                                                BackgroundColor="Transparent"
+                                                Source="forward_icon.png" />
+                                        </Grid>
+                                    </telerikPrimitives:RadBorder>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <ActivityIndicator
+                                WidthRequest="25"
+                                IsRunning="{Binding IsLoadingMore}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Color="{StaticResource NavigationPrimary}" />
+                        </ListView.Footer>
+                    </ListView>
+                </StackLayout>
+
+            </Grid>
+            <!--<StackLayout
+                Margin="5"
+                WidthRequest="162"
+                AbsoluteLayout.LayoutBounds="0,1,1,64"
+                AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional"
+                Orientation="Horizontal"
+                Spacing="0"
+                HorizontalOptions="End">
+                <Frame
+                    x:Name="BtnAddVisible"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        Padding="5"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="Green"
+                        Clicked="AddSim_Clicked"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Medium"
+                        Text="&#xf067;"
+                        TextColor="White" />
+                </Frame>
+                <Frame
+                    x:Name="BtnBuyAll"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        Padding="10"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#308bc2"
+                        Clicked="BuyAll_Clicked"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Medium"
+                        Text="&#xf7c4;"
+                        TextColor="White" />
+                </Frame>
+                <Frame
+                    x:Name="BtnEdit"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        Padding="10"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#4266B2"
+                        Clicked="GoToEdit_Clicked"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Medium"
+                        Text="&#xf044;"
+                        TextColor="White" />
+                </Frame>
+            </StackLayout>-->
+            <ContentView
+                Grid.RowSpan="2"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="#f2f2f2"
+
+                IsVisible="{Binding IsLogged, Converter={StaticResource BoolToBoolConverter}}">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Button
+                        BackgroundColor="White"
+                        BorderWidth="1"
+                        BorderColor="{StaticResource NavigationPrimary}"
+                        CornerRadius="20"
+                        Clicked="Login_Tapped"
+                        Padding="10"
+                        Text="Đăng nhập Simhere"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </ContentView>
+            <controls:PopupMenu MenuItems="{Binding MenuItems}" />
+            <!--<controls:PopUpLoading
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                IsVisible="{Binding IsRefreshing}" />-->
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

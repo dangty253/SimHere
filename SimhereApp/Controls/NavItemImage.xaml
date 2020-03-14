@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SimhereApp.Portable.Controls.NavItemImage">
+    <ContentView.Content>
+        <telerikPrimitives:RadBorder>
+            
+        </telerikPrimitives:RadBorder>
+    </ContentView.Content>
+</ContentView>

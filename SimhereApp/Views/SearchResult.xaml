@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:SimhereApp.Portable.Converters" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+             Title="Kết quả tìm kiếm" BackgroundColor="White" x:Class="SimhereApp.Portable.Views.SearchResult">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="CloseSearchToolbar" Clicked="CloseSearchToolbar_Clicked" Order="Primary" Text="Hủy" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Margin="10" Grid.Row="0" TextColor="#444444" IsVisible="{Binding IsEmptyList}" HorizontalTextAlignment="Center" Text="Không tìm thấy sim với tiêu chí của bạn" />
+            <ListView x:Name="SimListView" Grid.Row="1" SeparatorVisibility="None" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderColor="#eeeeee" Padding="10,5" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="25" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image HeightRequest="35" WidthRequest="55" Source="{Binding CarrierId,Converter={StaticResource CarrierLogoConverter }}" Grid.Column="0" />
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding DisplayNumber}" FontSize="16" FontAttributes="Bold" TextColor="DarkGreen" />
+                                        <Label Text="{Binding SimNumber}" FontSize="Small" TextColor="Black" />
+                                        <Label Text="{Binding Price,StringFormat='{0:0,0 đ}'}" FontSize="15" TextColor="#333333" />
+                                    </StackLayout>
+                                    <ImageButton HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent" Grid.Column="2" Source="forward_icon.png" />
+                                </Grid>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ActivityIndicator WidthRequest="20" Color="{StaticResource NavigationPrimary}" HorizontalOptions="Center" />
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+            </ListView>
+            <controls:PopUpLoading x:Name="gridLoading" Grid.RowSpan="2" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

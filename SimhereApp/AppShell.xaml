@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="SimhereApp.Portable.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:SimhereApp.Portable.Views"
+    FlyoutBehavior="Disabled">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.TabBarForegroundColor" Value="Pink" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#A6A6A6" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" />
+            <OnPlatform
+                x:Key="FontAwesome"
+                x:TypeArguments="x:String"
+                Android="fa-solid-900.ttf#Font Awesome 5 Free"
+                iOS="Font Awesome 5 Free" />
+        </ResourceDictionary>
+    </Shell.Resources>
+    <ShellItem Title="Trang chủ" Route="homes">
+        <ShellContent
+            Title="SimHere"
+            ContentTemplate="{DataTemplate view:Home}"
+            Icon="home.png"
+            Route="simhere" />
+        <ShellContent
+            Title="Tìm sim"
+            ContentTemplate="{DataTemplate view:SearchSim}"
+            Icon="search.png"
+            Route="searchsim" />
+        <ShellContent
+            Title="Chợ Sim"
+            ContentTemplate="{DataTemplate view:PostListPage}"
+            Icon="market.png"
+            Route="postlistpage" />
+        <!--<ShellContent
+            Title="Chợ Sim"
+            ContentTemplate="{DataTemplate view:SimMarketPage}"
+            Icon="market.png"
+            Route="postlistpage" />-->
+
+        <ShellContent
+            Title="Sim của tôi"
+            ContentTemplate="{DataTemplate view:MySimList}"
+            Icon="list.png"
+            Route="mysimlist" />
+        <ShellContent
+            Title="Tài khoản"
+            ContentTemplate="{DataTemplate view:UserInformationPage}"
+            Icon="account.png"
+            Route="account" />
+    </ShellItem>
+</Shell>

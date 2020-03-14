@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" ios:Page.UseSafeArea="true" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input" xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" xmlns:controls="clr-namespace:SimhereApp.Portable.Controls" Title="Đơn hàng của tôi" BackgroundColor="#F2F2F2" xmlns:converters="clr-namespace:SimhereApp.Portable.Converters" x:Class="SimhereApp.Portable.Views.MyOrders">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+            <converters:DecimalToVndConverter x:Key="DecimalToVndConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid ColumnSpacing="0" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" ColumnSpacing="4" BackgroundColor="#eeeeee" Padding="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <telerikInput:RadButton x:Name="BtnDonHangMua" Text="Đơn hàng mua" Clicked="DonHangMua_Clicked" FontSize="16" BackgroundColor="White" TextColor="#444444" BorderColor="Blue" CommandParameter="0" CornerRadius="0" Grid.Column="0" Grid.Row="0" />
+                <telerikInput:RadButton x:Name="BtnDonHangBan" Text="Đơn hàng bán" Clicked="DonHangBan_Clicked" FontSize="16" BackgroundColor="White" TextColor="#444444" BorderColor="Blue" CommandParameter="1" CornerRadius="0" Grid.Column="1" Grid.Row="0" />
+            </Grid>
+
+            <ScrollView Grid.Row="1" Orientation="Horizontal" BackgroundColor="White">
+                <StackLayout x:Name="StackLayoutButtonStatusGroup" Orientation="Horizontal" Spacing="3" Padding="10,0">
+                    <telerikInput:RadButton Text="Tất cả" Clicked="LoadByStatus_Clicked" BackgroundColor="White" TextColor="#444444" BorderThickness="0,0,0,3" BorderColor="Blue" Padding="10,0" />
+                    <telerikInput:RadButton Text="Chờ nhận" Clicked="LoadByStatus_Clicked" CommandParameter="0" BackgroundColor="White" TextColor="#444444" BorderThickness="0" BorderColor="Blue" Padding="10,0" />
+                    <telerikInput:RadButton Text="Đã nhận" Clicked="LoadByStatus_Clicked" CommandParameter="1" BackgroundColor="White" TextColor="#444444" BorderThickness="0" BorderColor="Blue" Padding="10,0" />
+                    <telerikInput:RadButton Text="Hoàn tất" Clicked="LoadByStatus_Clicked" CommandParameter="2" BackgroundColor="White" TextColor="#444444" BorderThickness="0" BorderColor="Blue" Padding="10,0" />
+                    <telerikInput:RadButton Text="Huỷ" Clicked="LoadByStatus_Clicked" CommandParameter="3" BackgroundColor="White" TextColor="#444444" BorderThickness="0" BorderColor="Blue" Padding="10,0" />
+                </StackLayout>
+            </ScrollView>
+
+            <Label Margin="10" Grid.Row="2" x:Name="lblEmptyList" FontSize="Small" IsVisible="{Binding IsEmptyList}" HorizontalTextAlignment="Center" Text="Bạn chưa có đơn hàng nào trong danh sách " />
+            <ListView x:Name="SimListView" Grid.Row="3" Margin="0,5,0,0" SeparatorVisibility="None" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderColor="#eeeeee" BackgroundColor="White" Padding="10,5" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="25" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Label Text="{Binding SimNumber}" FontSize="Medium" FontAttributes="Bold" TextColor="DarkGreen" />
+                                        <Label Text="{Binding SimPrice,Converter={StaticResource DecimalToVndConverter},StringFormat='Giá : {0}'}" FontSize="Small" TextColor="#666666" />
+                                        <Label Text="{Binding OrderDate,StringFormat='Ngày đặt hàng : {0:dd/MM/yyyy}'}" FontSize="Small" TextColor="#666666" />
+                                        <Label Text="{Binding StatusFormat}" FontSize="Small" />
+                                    </StackLayout>
+                                    <ImageButton HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent" Grid.Column="1" Source="forward_icon.png" />
+                                </Grid>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ActivityIndicator IsRunning="{Binding IsLoadingMore}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="25" Color="{StaticResource NavigationPrimary}" />
+                </ListView.Footer>
+            </ListView>
+            <controls:PopUpLoading x:Name="gridLoaing" Grid.RowSpan="4" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

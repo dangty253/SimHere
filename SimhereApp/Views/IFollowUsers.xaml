@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             Title="Bạn đang theo dõi"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimhereApp.Portable.Views.IFollowUsers">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AvatarConverter x:Key="AvatarConverter" />
+            <converters:NullAvatarToTextConverter x:Key="NullAvatarToText" />
+            <converters:HideEmailConverter x:Key="HideEmailConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Margin="10"
+                   Grid.Row="0"
+                   x:Name="lblEmptyList"
+                   TextColor="#444444"
+                   IsVisible="{Binding IsEmptyList}"
+                   HorizontalTextAlignment="Center"
+                   Text="Danh sách trống" />
+            <ListView x:Name="FollowListView"
+                      Grid.Row="1"
+                      SeparatorVisibility="None"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      ItemsSource="{Binding Data}"
+                      SelectionMode="None"
+                      HasUnevenRows="true"
+                      CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderThickness="0,0,0,1"
+                                                         BorderColor="#eeeeee">
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid ColumnSpacing="0"
+                                          RowSpacing="0"
+                                          Grid.Row="0"
+                                          Grid.Column="0">
+                                        <Label x:Name="lblDefaultAvatar"
+                                               Text="{Binding FullName,Converter={StaticResource NullAvatarToText}}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center" />
+                                        <pluginImageCircle:CircleImage Source="{Binding PictureUrl,Converter={StaticResource AvatarConverter}}"
+                                                                       HeightRequest="50"
+                                                                       WidthRequest="50"
+                                                                       BorderThickness="2"
+                                                                      BorderColor="#eeeeee" 
+                                                                       Aspect="AspectFill"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center" />
+                                    </Grid>
+                                    <StackLayout Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 VerticalOptions="Center">
+                                        <Label Text="{Binding FullName}"
+                                               FontAttributes="Bold"
+                                               FontSize="16"
+                                               TextColor="#000000" />
+                                        <Label Text="{Binding PhoneNumber}"
+                                               TextColor="#444444"
+                                               FontSize="14" />
+                                        <Label IsVisible="{Binding Email,Converter={StaticResource HideEmailConverter}}"
+                                               Text="{Binding Email}"
+                                               TextColor="#444444"
+                                               FontSize="14" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Row="0"
+                                                 Grid.Column="2">
+                                        <Label Text="{Binding RegisterDate,StringFormat='{0:dd/MM/yyyy}'}"
+                                               TextColor="#444444"
+                                               FontSize="12" />
+                                    </StackLayout>
+                                </Grid>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <controls:PopUpLoading IsVisible="{Binding IsLoading}"
+                                   Grid.RowSpan="2" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

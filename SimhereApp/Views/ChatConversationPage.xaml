@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.ChatConversationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converter="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    x:Name="ChatConversationPageName">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TimeAgoConverter x:Key="TimeAgoConverter" />
+            <converter:NullAvatarToTextConverter x:Key="NullAvatarToText" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewModels:ChatConversationViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ListView
+            BackgroundColor="#f2f2f2"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            ItemsSource="{Binding Data}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SelectionMode="None"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5" Margin="0,0,0,1" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference ChatConversationPageName}, Path=BindingContext.ItemTappedCommand}" CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid ColumnSpacing="0" RowSpacing="0">
+                                <Label
+                                    Text="{Binding Receiver.FullName, Converter={StaticResource NullAvatarToText}}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                                <pluginImageCircle:CircleImage
+                                    WidthRequest="60"
+                                    HeightRequest="60"
+                                    Aspect="AspectFill"
+                                    BorderColor="#eeeeee"
+                                    BorderThickness="2"
+                                    Source="{Binding Receiver.PictureUrl}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                            <StackLayout Grid.Column="1">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        FontSize="Large"
+                                        Text="{Binding Receiver.FullName}"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start" />
+                                    <Label
+                                        Padding="0,5,0,0"
+                                        FontSize="Small"
+                                        Text="{Binding ModifiedOn, Converter={StaticResource TimeAgoConverter}}"
+                                        HorizontalOptions="EndAndExpand" />
+                                </StackLayout>
+                                <Label
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding LatestContent}"
+                                    TextColor="Gray" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9EAFCE50-1070-44CD-B900-891463A89DED}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimhereApp.Droid</RootNamespace>
+    <AssemblyName>SimhereApp.Android</AssemblyName>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Android.Arch.Core.Common">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Core.Runtime">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Common">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Lifecycle.LiveData">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Lifecycle.LiveData.Core">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Runtime">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Arch.Lifecycle.ViewModel">
+      <Version>1.1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Annotations">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.AsyncLayoutInflater">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Collections">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Compat">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.CoordinaterLayout">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Core.UI">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.CursorAdapter">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Fragment">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Interpolator">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Loader">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Media.Compat">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.VersionedParcelable">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
+    <PackageReference Include="Telerik.UI.for.Xamarin">
+      <Version>2019.1.318.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Facebook.Android">
+      <Version>5.11.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
+      <Version>3.0.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.FirebasePushNotification">
+      <Version>2.3.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Native\Toast.cs" />
+    <Compile Include="Renderer\BsdEntryRenderer.cs" />
+    <Compile Include="Renderer\ExtendedTabbedPageRenderer.cs" />
+    <Compile Include="Renderer\ListViewScrollRenderer.cs" />
+    <Compile Include="Renderer\NoUnderlineSearchBarRenderer.cs" />
+    <Compile Include="SplashScreen.cs" />
+    <Compile Include="Services\FacebookService.cs" />
+    <Compile Include="CustomUrlSchemeInterceptorActivity.cs" />
+    <Compile Include="Native\SystemSettings.cs" />
+    <Compile Include="Native\FileService.cs" />
+    <Compile Include="Renderer\CustomEditorRenderer.cs" />
+    <Compile Include="Renderer\NullableDatePickerRenderer.cs" />
+    <Compile Include="Native\IClearCookiesImplementation.cs" />
+    <Compile Include="MainApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Tabbar.axml" />
+    <AndroidResource Include="Resources\layout\Toolbar.axml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\account.png" />
+    <AndroidResource Include="Resources\drawable\avatar.png" />
+    <AndroidResource Include="Resources\drawable\bell.png" />
+    <AndroidResource Include="Resources\drawable\bookmark.png" />
+    <AndroidResource Include="Resources\drawable\card_back_side.png" />
+    <AndroidResource Include="Resources\drawable\cart.png" />
+    <AndroidResource Include="Resources\drawable\chat_mess.png" />
+    <AndroidResource Include="Resources\drawable\checkbox_circle.png" />
+    <AndroidResource Include="Resources\drawable\checkbox_selected.png" />
+    <AndroidResource Include="Resources\drawable\click_to_buy.png" />
+    <AndroidResource Include="Resources\drawable\click_to_call.png" />
+    <AndroidResource Include="Resources\drawable\click_to_sms.png" />
+    <AndroidResource Include="Resources\drawable\close.png" />
+    <AndroidResource Include="Resources\drawable\close_dark.png" />
+    <AndroidResource Include="Resources\drawable\coin.png" />
+    <AndroidResource Include="Resources\drawable\delete_icon.png" />
+    <AndroidResource Include="Resources\drawable\fb_icon.png" />
+    <AndroidResource Include="Resources\drawable\forward.png" />
+    <AndroidResource Include="Resources\drawable\forward_icon.png" />
+    <AndroidResource Include="Resources\drawable\gmobile.png" />
+    <AndroidResource Include="Resources\drawable\gmobile_icon.png" />
+    <AndroidResource Include="Resources\drawable\google_icon.png" />
+    <AndroidResource Include="Resources\drawable\gradient.axml" />
+    <AndroidResource Include="Resources\drawable\heart.png" />
+    <AndroidResource Include="Resources\drawable\heart_check.png" />
+    <AndroidResource Include="Resources\drawable\heart_uncheck.png" />
+    <AndroidResource Include="Resources\drawable\home.png" />
+    <AndroidResource Include="Resources\drawable\icon.png" />
+    <AndroidResource Include="Resources\drawable\like.png" />
+    <AndroidResource Include="Resources\drawable\list.png" />
+    <AndroidResource Include="Resources\drawable\map_pin.png" />
+    <AndroidResource Include="Resources\drawable\mobifone.png" />
+    <AndroidResource Include="Resources\drawable\mobifone_icon.png" />
+    <AndroidResource Include="Resources\drawable\page.png" />
+    <AndroidResource Include="Resources\drawable\plus_white.png" />
+    <AndroidResource Include="Resources\drawable\post_sim.png" />
+    <AndroidResource Include="Resources\drawable\search.png" />
+    <AndroidResource Include="Resources\drawable\search_icon.png" />
+    <AndroidResource Include="Resources\drawable\share.png" />
+    <AndroidResource Include="Resources\drawable\shopping.png" />
+    <AndroidResource Include="Resources\drawable\sim1.jpg" />
+    <AndroidResource Include="Resources\drawable\sim_background.jpg" />
+    <AndroidResource Include="Resources\drawable\simhere_logo.jpg" />
+    <AndroidResource Include="Resources\drawable\splash.xml" />
+    <AndroidResource Include="Resources\drawable\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable\user_icon.jpg" />
+    <AndroidResource Include="Resources\drawable\vietnamobile.png" />
+    <AndroidResource Include="Resources\drawable\vietnamobile_icon.png" />
+    <AndroidResource Include="Resources\drawable\viettel.png" />
+    <AndroidResource Include="Resources\drawable\viettel_icon.png" />
+    <AndroidResource Include="Resources\drawable\vinaphone.png" />
+    <AndroidResource Include="Resources\drawable\vinaphone_icon.png" />
+    <AndroidResource Include="Resources\drawable\visible.png" />
+    <AndroidResource Include="Resources\drawable\zalo_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\account.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\avatar.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\background.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\bell.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bookmark.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\card_back_side.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\cart.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\chat_mess.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\checkbox_circle.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\checkbox_selected.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\click_to_buy.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\click_to_call.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\click_to_sms.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\close.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\close_dark.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\coin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\delete_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\fb_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\forward.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\forward_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\gmobile.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\gmobile_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\google_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\gradient.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\heart.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\heart_check.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\heart_uncheck.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\home.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\list.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\map_pin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\mobifone.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\mobifone_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\page.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\plus_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\post_sim.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\search.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\search_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\share.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\shopping.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\sim_background.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\sim1.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\simhere_logo.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\splash.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tiki.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\user_icon.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\vietnamobile.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\vietnamobile_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\viettel.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\viettel_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\vinaphone.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\vinaphone_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\visible.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\zalo_icon.png" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\drawable\google_sheet_ic.png" />
+    <AndroidResource Include="Resources\drawable\ic_scrolldown.png" />
+    <AndroidResource Include="Resources\drawable\ic_send.png" />
+    <AndroidResource Include="Resources\drawable\ic_close_black.png" />
+    <AndroidResource Include="Resources\drawable\chat_ic.png" />
+    <AndroidResource Include="Resources\drawable\follow_ic.png" />
+    <AndroidResource Include="Resources\drawable\follow_ic_2.png" />
+    <AndroidResource Include="Resources\drawable\sim_ic.png" />
+    <AndroidResource Include="Resources\drawable\sim_ic_2.png" />
+    <AndroidResource Include="Resources\drawable\market.png">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\simhere_60x60.png">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\filter.png">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimhereApp\SimhereApp.csproj">
+      <Project>{2D7C63E4-AF1E-4157-B360-80BFB7E5250D}</Project>
+      <Name>SimhereApp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5BrandsRegular.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

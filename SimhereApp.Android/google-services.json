@@ -1,0 +1,48 @@
+{
+    "project_info": {
+        "project_number": "306019789859",
+        "firebase_url": "https://simherepushnotification.firebaseio.com",
+        "project_id": "simherepushnotification",
+        "storage_bucket": "simherepushnotification.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:306019789859:android:7775b1c888f081102e9596",
+                "android_client_info": {
+                    "package_name": "com.simhereapp.trunglq.simhereapp"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "306019789859-7ve87ic4nvkvkjcnceqnu6bln52n4i70.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyDCqZnOic7U2B-YUYUeMsWvGJHurx6I9H4"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "306019789859-7ve87ic4nvkvkjcnceqnu6bln52n4i70.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "306019789859-be2jkf1pj8knn4c8bc0dm9fk0k5nludo.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "com.bsdsolutions.simhere",
+                                "app_store_id": "1467701303"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}

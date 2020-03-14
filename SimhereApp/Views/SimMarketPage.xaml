@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.SimMarketPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    x:Name="PostListName"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewModels:PostListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AvatarConverter x:Key="AvatarConverter" />
+            <converters:NullAvatarToTextConverter x:Key="NullAvatarToText" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:FilterStyleConverter x:Key="FilterStyleConverter" />
+            <converters:TypeToBoolConverter x:Key="TypeToBoolConverter" />
+            <converters:TimeAgoConverter x:Key="TimeAgoConverter" />
+            <Style x:Key="PostBtn" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource NavigationPrimary}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ContentView>
+            <ListView
+                BackgroundColor="#E9EBEE"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing}"
+                ItemAppearing="ListView_ItemAppearing"
+                ItemTapped="ListView_ItemTapped"
+                ItemsSource="{Binding Data}"
+                RefreshCommand="{Binding RefreshCommand}"
+                SelectionMode="None"
+                SeparatorVisibility="None">
+               <ListView.Header>
+                        <StackLayout>
+                            <controls:ExtendedFrame
+                                Padding="10,10,10,5"
+                                CornerRadius="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label IsVisible="{Binding IsLogged, Converter={StaticResource BoolToBoolConverter}}" HorizontalOptions="CenterAndExpand">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Bạn cần " />
+                                                <Span
+                                                    Text="đăng nhập"
+                                                    TextColor="Blue"
+                                                    TextDecorations="Underline">
+                                                    <Span.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Login_Tapped" />
+                                                    </Span.GestureRecognizers>
+                                                </Span>
+                                                <Span Text=" để đăng tin mới." />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Grid IsVisible="{Binding IsLogged}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button
+                                            Command="{Binding Source={x:Reference PostListName}, Path=BindingContext.CreateNewPostCommand}"
+                                            CommandParameter="1"
+                                            Style="{StaticResource PostBtn}"
+                                            Text="Đăng Mua" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding Source={x:Reference PostListName}, Path=BindingContext.CreateNewPostCommand}"
+                                            CommandParameter="2"
+                                            Style="{StaticResource PostBtn}"
+                                            Text="Đăng Bán" />
+                                    </Grid>
+                                </Grid>
+                            </controls:ExtendedFrame>
+                            <StackLayout BackgroundColor="White" Grid.Row="1" Padding="10,0,0,10">
+                                <Label Text="Lọc theo" />
+                                <CollectionView
+                                    HeightRequest="30"
+                                    HorizontalScrollBarVisibility="Never"
+                                    ItemsLayout="HorizontalList"
+                                    ItemsSource="{Binding Filters}"
+                                    HorizontalOptions="CenterAndExpand">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="0,0,10,0">
+                                                <Button
+                                                    Command="{Binding Source={x:Reference PostListName}, Path=BindingContext.SelectedFilterCommand}"
+                                                    CommandParameter="{Binding Value}"
+                                                    Style="{Binding IsSelected, Converter={StaticResource FilterStyleConverter}}"
+                                                    Text="{Binding Key}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </StackLayout>
+                    </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:ExtendedFrame Margin="0,0,0,5" Padding="0">
+                                <Grid>
+                                    <Grid Padding="5,5,5,0" BackgroundColor="{StaticResource PostRbga}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="70*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    CommandParameter="{Binding User.Id}"
+                                                    NumberOfTapsRequired="1"
+                                                    Tapped="User_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Grid ColumnSpacing="0" RowSpacing="0">
+                                                <Label
+                                                    Text="{Binding User.FullName, Converter={StaticResource NullAvatarToText}}"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center" />
+                                                <pluginImageCircle:CircleImage
+                                                    WidthRequest="50"
+                                                    HeightRequest="50"
+                                                    Aspect="AspectFill"
+                                                    BorderColor="#eeeeee"
+                                                    BorderThickness="2"
+                                                    Source="{Binding User.PictureUrl}"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                        </StackLayout>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Orientation="Vertical">
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                FontAttributes="Bold"
+                                                Text="{Binding User.FullName}"
+                                                TextColor="Black" />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                FontSize="Small"
+                                                Text="{Binding CreatedOn, Converter={StaticResource TimeAgoConverter}}"
+                                                TextColor="Black" />
+                                        </StackLayout>
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="3"
+                                            Margin="0,0,0,5"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="2"
+                                            Text="{Binding Content}"
+                                            TextColor="Black" />
+                                        <Grid
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="3"
+                                            ColumnSpacing="5"
+                                            VerticalOptions="End">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="20"
+                                                Text="{Binding SellingSim.DisplayNumber}"
+                                                TextColor="#333333" />
+                                            <Label
+                                                Grid.Column="1"
+                                                FontSize="20"
+                                                Text="{Binding SellingSim.Price, StringFormat='{0:0,0 đ}'}"
+                                                TextColor="#333333" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </controls:ExtendedFrame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <ActivityIndicator
+                            IsRunning="{Binding IsLoadingMore}"
+                            IsVisible="{Binding IsLoadingMore}"
+                            HorizontalOptions="Center"
+                            Color="{StaticResource NavigationPrimary}" />
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

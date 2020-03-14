@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    x:Class="SimhereApp.Portable.Views.AddSimByText">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Import"
+                     x:Name="SaveToolbarBtn"
+                     Priority="0"
+                     Order="Primary"
+                     Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ContentView VerticalOptions="FillAndExpand"
+                         Padding="10"
+                         Grid.Row="0"
+                         BackgroundColor="white">
+                <Editor x:Name="editor"
+                        Placeholder="Nhập text..."
+                        BackgroundColor="#eeeeee"
+                        VerticalOptions="FillAndExpand" />
+            </ContentView>
+            <ScrollView Grid.Row="1">
+                <StackLayout  Padding="10"
+                              Spacing="5">
+                    <Label Text="Các mẫu template hợp lệ :"
+                           FontSize="15"
+                           TextColor="#000000"
+                           FontAttributes="Bold" />
+                    <Label Text="0234.123.123=1.500.000"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123=1.500k"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123==1.500.000"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123==1.500k"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123...1500000"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123...1500k"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123-1500000"
+                           FontSize="15"
+                           TextColor="#444444" />
+                    <Label Text="0234.123.123-1500k"
+                           FontSize="15"
+                           TextColor="#444444" />
+                </StackLayout>
+            </ScrollView>
+            <controls:PopUpLoading Grid.RowSpan="2"
+                                   x:Name="gridLoading" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

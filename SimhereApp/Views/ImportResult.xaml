@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    Title="Kết quả import"
+    x:Class="SimhereApp.Portable.Views.ImportResult">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="SimListView"
+                      Grid.Row="0"
+                      SeparatorVisibility="None"
+                      HasUnevenRows="True"
+                      VerticalOptions="FillAndExpand"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderColor="#eeeeee"
+                                                         BackgroundColor="White"
+                                                         Padding="10,5"
+                                                         BorderThickness="0,0,0,1">
+                                <StackLayout>
+                                    <Label Text="{Binding DisplayNumber}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="DarkGreen" />
+                                    <Label Text="{Binding SimNumber}"
+                                           FontSize="Small"
+                                           TextColor="Black" />
+                                    <Label Text="{Binding Price,StringFormat='{0:0,0 đ}'}"
+                                           FontSize="Small"
+                                           TextColor="#666666" />
+                                </StackLayout>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid
+                BackgroundColor="#ffffff"
+                ColumnSpacing="5"
+                Grid.Row="1"
+                Padding="5"
+                VerticalOptions="End">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:ButtonOutline x:Name="BtnDangSim"
+                                        Grid.Column="0"
+                                        OutlineColor="Green"
+                                        VerticalOptions="End"
+                                        Text="Bán Sim"
+                                        Clicked="BtnDangSimClicked" />
+                <controls:ButtonOutline x:Name="BtnXoaSim"
+                                        Grid.Column="1"
+                                        OutlineColor="Red"
+                                        VerticalOptions="End"
+                                        Text="Xoá Sim"
+                                        Clicked="BtnDeleteSimClicked" />
+            </Grid>
+            <controls:PopUpLoading x:Name="gridLoading"
+                                   Grid.RowSpan="2" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.Home"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    x:Name="ContentPageName"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="true">
+    <ContentPage.BindingContext>
+        <viewModels:HomeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+            <converters:SimTypeImageCoverter x:Key="SimTypeImageCoverter" />
+            <converters:DecimalToVndConverter x:Key="DecimalToVndConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="145" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <controls:ExtendedFrame
+                    Grid.Row="0"
+                    Padding="10,0,10,0"
+                    CornerRadius="5">
+                    <controls:ExtendedFrame.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="Transparent" />
+                    </controls:ExtendedFrame.BackgroundColor>
+                    <controls:ExtendedFrame.Margin>
+                        <OnPlatform x:TypeArguments="Thickness" Android="10,5,10,5" />
+                    </controls:ExtendedFrame.Margin>
+                    <SearchBar
+                        CancelButtonColor="White"
+                        FontSize="14"
+                        Keyboard="Telephone"
+                        Placeholder="Nhập số cần tìm kiếm"
+                        SearchCommand="{Binding SearchCommand}"
+                        Text="{Binding Keyword, Mode=TwoWay}"
+                        TextColor="#333333">
+                        <SearchBar.BackgroundColor>
+                            <OnPlatform
+                                x:TypeArguments="Color"
+                                Android="White"
+                                iOS="Transparent" />
+                        </SearchBar.BackgroundColor>
+                        <SearchBar.PlaceholderColor>
+                            <OnPlatform
+                                x:TypeArguments="Color"
+                                Android="Gray"
+                                iOS="Gray" />
+                        </SearchBar.PlaceholderColor>
+                    </SearchBar>
+                </controls:ExtendedFrame>
+                <StackLayout Grid.Row="1" BackgroundColor="White">
+                    <controls:FormLabel
+                        Padding="10,0"
+                        IsVisible="{Binding IsEmptyList, Converter={StaticResource BoolToBoolConverter}}"
+                        Text="Sim nổi bật" />
+                    <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                        <StackLayout BindableLayout.ItemsSource="{Binding HotSims}" Orientation="Horizontal">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={x:Reference ContentPageName}, Path=BindingContext.TapCommand}"
+                                                CommandParameter="{Binding .}"
+                                                NumberOfTapsRequired="1" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="{Binding ., Converter={StaticResource SimTypeImageCoverter}}"
+                                            WidthRequest="150" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Margin="5,0,0,5"
+                                            FontAttributes="Bold"
+                                            FontSize="15"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="{Binding DisplayNumber}"
+                                            TextColor="Red" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+                <Label
+                    Grid.Row="2"
+                    Padding="5"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding IsEmptyList}"
+                    Text="Chưa có sim nào trong danh sách"
+                    TextColor="#444444" />
+                <ListView
+                    Grid.Row="2"
+                    BackgroundColor="#f2f2f2"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    ItemAppearing="ListView_ItemAppearing"
+                    ItemsSource="{Binding Data}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    SelectionMode="None"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <telerikPrimitives:RadBorder
+                                    Padding="10,5"
+                                    BackgroundColor="White"
+                                    BorderColor="#eeeeee"
+                                    BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={x:Reference ContentPageName}, Path=BindingContext.TapCommand}"
+                                                CommandParameter="{Binding .}"
+                                                NumberOfTapsRequired="1" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="25" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Column="0"
+                                            HeightRequest="35"
+                                            Source="{Binding CarrierId, Converter={StaticResource CarrierLogoConverter}}"
+                                            WidthRequest="55" />
+                                        <StackLayout Grid.Column="1" HorizontalOptions="Fill">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Medium"
+                                                Text="{Binding DisplayNumber}"
+                                                TextColor="DarkGreen" />
+                                            <Label
+                                                FontSize="Small"
+                                                Text="{Binding SimNumber}"
+                                                TextColor="Black" />
+                                            <Label
+                                                FontSize="Small"
+                                                Text="{Binding Price, Converter={StaticResource DecimalToVndConverter}}"
+                                                TextColor="#666666" />
+                                        </StackLayout>
+                                        <StackLayout
+                                            Grid.Column="2"
+                                            HorizontalOptions="End"
+                                            IsVisible="false"
+                                            VerticalOptions="Center">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesomeSolid}"
+                                                    FontSize="16"
+                                                    Text="&#xf004;"
+                                                    TextColor="#444444" />
+                                                <Label
+                                                    FontSize="13"
+                                                    Text="10"
+                                                    TextColor="#444444" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesomeSolid}"
+                                                    FontSize="16"
+                                                    Text="&#xf06e;"
+                                                    TextColor="#444444" />
+                                                <Label
+                                                    FontSize="13"
+                                                    Text="10"
+                                                    TextColor="#444444" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <ImageButton
+                                            Grid.Column="3"
+                                            BackgroundColor="Transparent"
+                                            HeightRequest="25"
+                                            Source="forward_icon.png"
+                                            WidthRequest="25" />
+                                    </Grid>
+                                </telerikPrimitives:RadBorder>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoadingMore}"
+                            IsVisible="{Binding IsLoadingMore}"
+                            VerticalOptions="Center"
+                            WidthRequest="25"
+                            Color="{StaticResource NavigationPrimary}" />
+                    </ListView.Footer>
+                </ListView>
+            </Grid>
+            <controls:LoadingScreen IsLoading="{Binding IsRefreshing}" />
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView x:Name="rootContentView" 
+             VerticalOptions="FillAndExpand" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="SimhereApp.Portable.Controls.PopUpLoading">
+    <telerikPrimitives:RadBorder CornerRadius="10" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" Padding="10,5">
+        <StackLayout Orientation="Horizontal">
+            <ActivityIndicator x:Name="ActivityIndicator" IsRunning="{Binding Source={x:Reference rootContentView}, Path=IsVisible,Mode=TwoWay}" WidthRequest="22" Color="Blue" HorizontalOptions="Center" />
+            <Label Text="Đang xử lý..." FontSize="12" VerticalOptions="Center" />
+        </StackLayout>
+    </telerikPrimitives:RadBorder>
+</ContentView>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="SimhereApp.Portable.Views.Cells.OutgoingViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid
+        Padding="5,0"
+        ColumnSpacing="2"
+        Rotation="180">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="35" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Frame
+            Grid.Row="0"
+            Grid.Column="0"
+            Padding="9,7,9,5"
+            BackgroundColor="#0084FF"
+            HorizontalOptions="Start">
+            <Frame.HasShadow>
+                <OnPlatform
+                    x:TypeArguments="x:Boolean"
+                    Android="true"
+                    iOS="false" />
+            </Frame.HasShadow>
+            <StackLayout HorizontalOptions="Start">
+                <Label
+                    FontSize="16"
+                    Text="{Binding Content}"
+                    TextColor="White" />
+                <Label
+                    FontSize="Micro"
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding CreatedOn, StringFormat='{0:HH:mm}'}"
+                    TextColor="#eeeeee" />
+            </StackLayout>
+        </Frame>
+        <!--<Label FontSize="Micro" Grid.Row="1" HorizontalTextAlignment="Start" Grid.Column="0" Text="{Binding CreatedDate, StringFormat='{0:HH:mm}'}" TextColor="Gray" />-->
+
+    </Grid>
+</ViewCell>

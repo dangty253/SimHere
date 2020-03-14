@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" ios:Page.UseSafeArea="true" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls" xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls" xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" xmlns:controls="clr-namespace:SimhereApp.Portable.Controls" xmlns:converters="clr-namespace:SimhereApp.Portable.Converters" Title="Sim đang theo dõi" BackgroundColor="White" x:Class="SimhereApp.Portable.Views.Follow">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblEmptyList" Margin="10" VerticalOptions="Center" TextColor="#444444" IsVisible="{Binding IsEmptyList}" HorizontalTextAlignment="Center" Text="Bạn chưa có sim nào trong danh sách theo dõi" />
+            <ListView x:Name="SimListView" Grid.Row="1" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderColor="#eeeeee" Padding="10,5" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="25" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image HeightRequest="35" WidthRequest="55" Source="{Binding CarrierId,Converter={StaticResource CarrierLogoConverter }}" Grid.Column="0" />
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding DisplayNumber}" FontSize="16" FontAttributes="Bold" TextColor="DarkGreen" />
+                                        <Label Text="{Binding SimNumber}" FontSize="Small" TextColor="Black" />
+                                        <Label Text="{Binding Price,StringFormat='{0:0,0 đ}'}" FontSize="15" TextColor="#333333" />
+                                    </StackLayout>
+                                    <ImageButton HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent" Grid.Column="2" Source="forward_icon.png" />
+                                </Grid>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ActivityIndicator IsRunning="{Binding IsLoadingMore}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="25" Color="{StaticResource NavigationPrimary}" />
+                </ListView.Footer>
+            </ListView>
+            <StackLayout x:Name="stackLayoutBtnLogin" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" IsVisible="False">
+                <Button x:Name="btnLogin" Padding="10,0" HeightRequest="40" CornerRadius="20" BorderWidth="1" BackgroundColor="White" BorderColor="#4267B2" TextColor="#4267B2" Text="Đăng nhập SimHere" />
+            </StackLayout>
+            <controls:PopUpLoading Grid.RowSpan="2" x:Name="gridLoading" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

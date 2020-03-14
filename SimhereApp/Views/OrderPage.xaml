@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="SimhereApp.Portable.Views.OrderPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+             xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+             Title="Đơn đặt hàng"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="#eeeeee"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierIconConverter x:Key="CarrierIconConverter" />
+            <converters:OptionConverter x:Key="OptionConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:OrderStatusConverter x:Key="OrderStatusConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All"
+                  RowSpacing="0"
+                  VerticalOptions="FillAndExpand"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ScrollView Grid.Row="0" IsVisible="true">
+                    <StackLayout Spacing="0">
+                        <StackLayout Padding="10" BackgroundColor="White">
+                            <Label FontAttributes="Bold"
+                                   FontSize="Large"
+                                   Text="Thông tin Sim"
+                                   />
+                            <StackLayout Margin="0,5"
+                                         IsVisible="{Binding IsNewOrder, Converter={StaticResource BoolToBoolConverter}}"
+                                         Orientation="Horizontal"
+                                         >
+                                <Label FontSize="Medium"
+                                       Text="Trạng thái đơn hàng : "
+                                       TextColor="#444444"
+                                       />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding OrderDetail.StatusFormat}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Số sim : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblSoSIm"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding SimDetail.SimNumber}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Giá : "
+                                       TextColor="#444444"
+                                       />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding SimDetail.Price, StringFormat='{0:0,0đ}'}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Nhà mạng : "
+                                       TextColor="#444444"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="Center"
+                                       />
+                                <Image x:Name="imgCarrier"
+                                       HeightRequest="30"
+                                       Source="{Binding SimDetail.CarrierId, Converter={StaticResource CarrierIconConverter}}"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Loại sim : "
+                                       TextColor="#444444"
+                                       />
+                                <StackLayout BindableLayout.ItemsSource="{Binding SimDetail.Sim_NumberTypes}"
+                                             Orientation="Horizontal"
+                                             HorizontalOptions="EndAndExpand"
+                                             >
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Medium"
+                                                   Text="{Binding NumberTypeId, Converter={StaticResource OptionConverter}, ConverterParameter=NumberTypeOptions}"
+                                                   />
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Loại thuê bao : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblSubcriberType"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding SimDetail.SubcribeType.Name}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Margin="0,10,0,0"
+                                     Padding="10"
+                                     BackgroundColor="White"
+                                     Spacing="3"
+                                     >
+                            <Label FontAttributes="Bold"
+                                   FontSize="Large"
+                                   Text="Thông tin người bán"
+                                   />
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Họ tên : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblOwnerName"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Owner.FullName}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Email : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblOnwerEmail"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Owner.Email}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Số điện thoại : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblOwnerPhone"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Owner.PhoneNumber}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <Label FontSize="Medium"
+                                       Text="Địa chỉ : "
+                                       TextColor="#444444"
+                                       />
+                                <Label x:Name="lblOwnerAddress"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Owner.Address}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Margin="0,10,0,0"
+                                     Padding="10"
+                                     BackgroundColor="White"
+                                     IsVisible="{Binding IsVisibleBuyerInfo}"
+                                     >
+                            <Label FontAttributes="Bold"
+                                   FontSize="Large"
+                                   Text="Thông tin người mua"
+                                   />
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <controls:FormLabelRequired Text="Họ Tên : " />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Buyer.FullName}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <controls:FormLabelRequired Text="Email : " />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Buyer.Email}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <controls:FormLabelRequired Text="Số điện thoại : " />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Buyer.Phone}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                            <StackLayout Margin="0,5" Orientation="Horizontal">
+                                <controls:FormLabelRequired Text="Địa chỉ : " />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="{Binding Buyer.Address}"
+                                       HorizontalOptions="EndAndExpand"
+                                       />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Margin="0,10,0,0"
+                                     Padding="10"
+                                     BackgroundColor="White"
+                                     IsVisible="{Binding IsVisibleBuyerEditable}"
+                                     >
+                            <Label FontAttributes="Bold"
+                                   FontSize="Large"
+                                   Text="Thông tin người mua"
+                                   />
+                            <controls:FormLabelRequired Text="Họ Tên : " />
+                            <Entry FontSize="16"
+                                   Placeholder="Họ tên"
+                                   Text="{Binding Buyer.FullName}"
+                                   />
+                            <controls:FormLabelRequired Text="Email : " />
+                            <Entry FontSize="16"
+                                   Keyboard="Email"
+                                   Placeholder="Email"
+                                   Text="{Binding Buyer.Email}"
+                                   />
+                            <controls:FormLabelRequired Text="Số điện thoại : " />
+                            <Entry FontSize="16"
+                                   Placeholder="Số điện thoại"
+                                   Text="{Binding Buyer.Phone}"
+                                   />
+                            <controls:FormLabelRequired Text="Địa chỉ : " />
+                            <Entry FontSize="16"
+                                   Placeholder="Địa chỉ"
+                                   Text="{Binding Buyer.Address}"
+                                   />
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+                <!--<Grid Grid.Row="1"
+                      Padding="5"
+                      BackgroundColor="transparent"
+                      ColumnSpacing="5"
+                      IsVisible="{Binding IsOwner, Converter={StaticResource BoolToBoolConverter}}"
+                      >
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="#189EFF"
+                                            Command="{Binding ContactOrderCommand}"
+                                            CommandParameter="tobuyer"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnBuyerContact}"
+                                            Text="Liên hệ"
+                                            TextColor="White"
+                                            />
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="#189EFF"
+                                            Command="{Binding PlaceOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnBuyerOrder}"
+                                            Text="Đặt hàng"
+                                            TextColor="White"
+                                            />
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="#c69709"
+                                            BorderRadius="50"
+                                            Command="{Binding CancelOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnBuyerCancle}"
+                                            Text="Huỷ"
+                                            TextColor="White"
+                                            />
+                </Grid>
+                <Grid Grid.Row="1"
+                      Padding="5"
+                      BackgroundColor="transparent"
+                      ColumnSpacing="5"
+                      IsVisible="{Binding IsOwner}"
+                      >
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="#189EFF"
+                                            Command="{Binding ContactOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnOwnerContact}"
+                                            Text="Liên hệ"
+                                            />
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="White"
+                                            BorderColor="Green"
+                                            BorderWidth="1"
+                                            Command="{Binding ConfirmOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnOwnerConfirm}"
+                                            TextColor="Green"
+                                            />
+                    <telerikInput:RadButton Padding="10,0"
+                                            HeightRequest="40"
+                                            BackgroundColor="White"
+                                            BorderColor="#189EFF"
+                                            BorderWidth="1"
+                                            Command="{Binding CompleteOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnOwnerComplete}"
+                                            Text="Hoàn tất giao dịch"
+                                            TextColor="#189EFF"
+                                            />
+                    <telerikInput:RadButton HeightRequest="40"
+                                            BackgroundColor="White"
+                                            BorderColor="#c69709"
+                                            BorderWidth="1"
+                                            Command="{Binding CancelOrderCommand}"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding btnOwnerCancel}"
+                                            Text="Huỷ"
+                                            TextColor="#c69709"
+                                            />
+                </Grid>-->
+                <!--<controls:PopUpLoading Grid.RowSpan="2"
+                                   x:Name="gridLoading" />-->
+            </Grid>
+            <controls:PopupMenu MenuItems="{Binding MenuItems}" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

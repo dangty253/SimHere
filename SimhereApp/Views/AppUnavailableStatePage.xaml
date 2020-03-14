@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.AppUnavailableStatePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content />
+    <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Label x:Name="lbl" />
+        <Button
+            x:Name="btn"
+            BackgroundColor="White"
+            BorderColor="#2196F3"
+            CornerRadius="20"
+            BorderWidth="1" />
+            </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="SimhereApp.Portable.Controls.ScrollTabOptions"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ControlName"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <ScrollView
+            BackgroundColor="White"
+            HeightRequest="35"
+            HorizontalOptions="Center"
+            HorizontalScrollBarVisibility="Never"
+            Orientation="Horizontal"
+            VerticalOptions="Center"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout BindableLayout.ItemsSource="{Binding OptionsSource, Source={Reference ControlName}}" Orientation="Horizontal">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{Binding FrameStyle}">
+                            <!--<Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnSelectedCommand, Source={Reference ControlName}}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>-->
+                            <Label Style="{Binding LabelStyle}" Text="{Binding Key}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Command}" CommandParameter="{Binding .}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

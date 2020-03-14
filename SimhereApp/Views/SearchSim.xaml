@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.SearchSim"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    Title="Tìm kiếm sim"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="#eeeeee">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ShowClearButtonConverter x:Key="ShowClearButtonConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView
+                Padding="0,0,0,64"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <StackLayout>
+                    <!--  tim theo gia tien  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Khoảng giá:" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:CurrencyEntry
+                                x:Name="priceFrom"
+                                Grid.Column="0"
+                                MaxValue="2000000000"
+                                Placeholder="Giá từ" />
+                            <controls:CurrencyEntry
+                                x:Name="priceTo"
+                                Grid.Column="1"
+                                MaxValue="2000000000"
+                                Placeholder="Giá đến" />
+                        </Grid>
+                    </StackLayout>
+
+                    <!--  tim theo day so khong bao gom  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Dãy số không bao gồm :" />
+                        <Grid x:Name="gridListNotInNumber" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <controls:BsdCheckbox
+                                Title="0"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="1"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="2"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="3"
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="4"
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="5"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="6"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="7"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="8"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                            <controls:BsdCheckbox
+                                Title="9"
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Margin="0,0,10,5"
+                                CheckedColor="#189EFF"
+                                Spacing="3"
+                                HorizontalOptions="Center" />
+                        </Grid>
+                    </StackLayout>
+
+                    <!--  tim theo nha mang  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Chọn nhà mạng" />
+                        <Grid
+                            x:Name="gridCarrierOptions"
+                            ColumnSpacing="5"
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid
+                                Grid.Column="0"
+                                Padding="0"
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="1"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="SelectCarrier_Clicked" />
+                                </Grid.GestureRecognizers>
+                                <Image Aspect="AspectFit" Source="viettel.png" />
+                                <StackLayout
+                                    Padding="3"
+                                    IsVisible="false"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="25"
+                                        Text="&#xf058;"
+                                        TextColor="DarkGreen"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                            <Grid
+                                Grid.Column="1"
+                                Padding="0"
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="2"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="SelectCarrier_Clicked" />
+                                </Grid.GestureRecognizers>
+                                <Image Aspect="AspectFit" Source="mobifone.png" />
+                                <StackLayout
+                                    Padding="3"
+                                    IsVisible="false"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="25"
+                                        Text="&#xf058;"
+                                        TextColor="DarkGreen"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                            <Grid
+                                Grid.Column="2"
+                                Padding="0"
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="3"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="SelectCarrier_Clicked" />
+                                </Grid.GestureRecognizers>
+                                <Image Aspect="AspectFit" Source="vinaphone.png" />
+                                <StackLayout
+                                    Padding="3"
+                                    IsVisible="false"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="25"
+                                        Text="&#xf058;"
+                                        TextColor="DarkGreen"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                            <Grid
+                                Grid.Column="3"
+                                Padding="0"
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="4"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="SelectCarrier_Clicked" />
+                                </Grid.GestureRecognizers>
+                                <Image Aspect="AspectFit" Source="vietnamobile.png" />
+                                <StackLayout
+                                    Padding="3"
+                                    IsVisible="false"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="25"
+                                        Text="&#xf058;"
+                                        TextColor="DarkGreen"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                            <Grid
+                                Grid.Column="4"
+                                Padding="0"
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="5"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="SelectCarrier_Clicked" />
+                                </Grid.GestureRecognizers>
+                                <Image Aspect="AspectFit" Source="gmobile.png" />
+                                <StackLayout
+                                    Padding="3"
+                                    IsVisible="false"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        FontSize="25"
+                                        Text="&#xf058;"
+                                        TextColor="DarkGreen"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                        </Grid>
+
+                    </StackLayout>
+
+                    <!--  tim theo dau so  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Đầu số" />
+                        <Grid>
+                            <Picker
+                                x:Name="PickerPrefixNumber"
+                                Title="Chọn đầu số"
+                                FontSize="16"
+                                ItemDisplayBinding="{Binding Value}"
+                                ItemsSource="{Binding PrefixNumberOptions}"
+                                SelectedIndexChanged="PrefixNumber_SelectedIndexChanged"
+                                HorizontalOptions="FillAndExpand" />
+                            <ImageButton
+                                x:Name="btnClearPrefixNumber"
+                                Margin="0,0,5,0"
+                                WidthRequest="15"
+                                HeightRequest="15"
+                                BackgroundColor="Transparent"
+                                Clicked="ClearPrefixNumber_Clicked"
+                                Source="close_dark.png"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </StackLayout>
+
+                    <!--  loai sim  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Loại sim" />
+
+                        <StackLayout x:Name="gridNumberTypes" />
+
+                    </StackLayout>
+
+                    <!--  tim theo phong thuy  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Phong thuỷ" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+                            <Entry
+                                x:Name="EntryTotalPoint"
+                                Grid.Column="0"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Placeholder="Tổng số điểm" />
+                            <Entry
+                                x:Name="EntryLastNumber"
+                                Grid.Column="1"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Placeholder="Tổng số nút" />
+                        </Grid>
+                    </StackLayout>
+
+                    <!--  tim theo menh  -->
+                    <StackLayout
+                        Margin="0,0,0,3"
+                        Padding="10"
+                        BackgroundColor="White">
+                        <controls:FormLabel Text="Mệnh" />
+                        <Grid x:Name="gridMenh" ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <telerikPrimitives:RadBorder
+                                Grid.Column="0"
+                                Padding="10"
+                                BackgroundColor="#FAD606"
+                                BorderColor="transparent"
+                                BorderThickness="3"
+                                CornerRadius="5">
+                                <telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="0"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="Menh_Checked" />
+                                </telerikPrimitives:RadBorder.GestureRecognizers>
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Kim"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </telerikPrimitives:RadBorder>
+                            <telerikPrimitives:RadBorder
+                                Grid.Column="1"
+                                Padding="10"
+                                BackgroundColor="#189647"
+                                BorderColor="transparent"
+                                BorderThickness="3"
+                                CornerRadius="5">
+                                <telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="1"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="Menh_Checked" />
+                                </telerikPrimitives:RadBorder.GestureRecognizers>
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Mộc"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </telerikPrimitives:RadBorder>
+
+                            <telerikPrimitives:RadBorder
+                                Grid.Column="2"
+                                Padding="10"
+                                BackgroundColor="#308BC2"
+                                BorderColor="transparent"
+                                BorderThickness="3"
+                                CornerRadius="5">
+                                <telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="2"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="Menh_Checked" />
+                                </telerikPrimitives:RadBorder.GestureRecognizers>
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Thuỷ"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </telerikPrimitives:RadBorder>
+
+                            <telerikPrimitives:RadBorder
+                                Grid.Column="3"
+                                Padding="10"
+                                BackgroundColor="#E64125"
+                                BorderColor="transparent"
+                                BorderThickness="3"
+                                CornerRadius="5">
+                                <telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="3"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="Menh_Checked" />
+                                </telerikPrimitives:RadBorder.GestureRecognizers>
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Hoả"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </telerikPrimitives:RadBorder>
+
+                            <telerikPrimitives:RadBorder
+                                Grid.Column="4"
+                                Padding="10"
+                                BackgroundColor="#B66B28"
+                                BorderColor="transparent"
+                                BorderThickness="3"
+                                CornerRadius="5">
+                                <telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        CommandParameter="4"
+                                        NumberOfTapsRequired="1"
+                                        Tapped="Menh_Checked" />
+                                </telerikPrimitives:RadBorder.GestureRecognizers>
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Thổ"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </telerikPrimitives:RadBorder>
+
+
+                        </Grid>
+                    </StackLayout>
+
+                    <!--  tim theo so  -->
+                    <StackLayout Padding="10" BackgroundColor="White">
+                        <controls:FormLabel Text="Nhập số bạn cần tìm" />
+                        <Entry
+                            x:Name="EntryKeyword"
+                            FontSize="16"
+                            Keyboard="Telephone"
+                            Placeholder="Nhập số cần tìm" />
+                        <telerikInput:RadButton
+                            x:Name="XemHuongDanTimKiem"
+                            Padding="10,5"
+                            BackgroundColor="#eeeeee"
+                            BorderColor="{StaticResource NavigationPrimary}"
+                            Clicked="XemHuongDanTimKiem_Clicked"
+                            CornerRadius="0"
+                            FontSize="12"
+                            IsVisible="False"
+                            Text="Xem hướng dẫn tìm kiếm"
+                            HorizontalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout
+                Margin="5"
+                AbsoluteLayout.LayoutBounds="0,1,1,64"
+                AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional"
+                Orientation="Horizontal"
+                Spacing="0"
+                HorizontalOptions="End">
+                <Frame
+                    HasShadow="False"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#ae875e"
+                        Clicked="ResetSearchForm_Clicked"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf021;"
+                        TextColor="White" />
+                </Frame>
+                <Frame
+                    HasShadow="False"
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#0084ff"
+                        Clicked="BtnSeach_Clicked"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf002;"
+                        TextColor="White" />
+                </Frame>
+            </StackLayout>
+            <controls:PopUpLoading
+                x:Name="gridLoading"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

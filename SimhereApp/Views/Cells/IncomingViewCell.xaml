@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="SimhereApp.Portable.Views.Cells.IncomingViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:convertes="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:plugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin">
+    <ViewCell.View>
+        <Grid
+            Padding="5,0"
+            ColumnSpacing="2"
+            Rotation="180">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <convertes:NullAvatarToTextConverter x:Key="NullAvatarToTextConverter" />
+                    <convertes:StringToReverseBoolConverter x:Key="StringToReverseBoolConverter" />
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding MessageSender.FullName, Converter={StaticResource NullAvatarToTextConverter}}"
+                    VerticalOptions="Center" />
+                <plugin:CircleImage
+                    Aspect="AspectFill"
+                    BorderColor="#eeeeee"
+                    BorderThickness="{Binding MessageSender.PictureUrl, Converter={StaticResource StringToReverseBoolConverter}}"
+                    HeightRequest="35"
+                    HorizontalOptions="Center"
+                    Source="{Binding MessageSender.PictureUrl}"
+                    VerticalOptions="Center"
+                    WidthRequest="35" />
+            </Grid>
+            <Frame
+                Grid.Row="0"
+                Grid.Column="1"
+                Padding="9,7,9,5"
+                HorizontalOptions="End">
+                <Frame.HasShadow>
+                    <OnPlatform
+                        x:TypeArguments="x:Boolean"
+                        Android="true"
+                        iOS="false" />
+                </Frame.HasShadow>
+                <Frame.BackgroundColor>
+                    <OnPlatform
+                        x:TypeArguments="Color"
+                        Android="White"
+                        iOS="#EFEFEF" />
+                </Frame.BackgroundColor>
+                <StackLayout HorizontalOptions="End">
+                    <Label
+                        FontSize="16"
+                        Text="{Binding Content}"
+                        TextColor="#444444" />
+                    <Label
+                        FontSize="Micro"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding CreatedOn, StringFormat='{0:HH:mm}'}"
+                        TextColor="Gray" />
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

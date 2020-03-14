@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.UserInformationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="true">
+    <ContentPage.BindingContext>
+        <viewModels:UserInformationViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToBoolConverter x:Key="stringToBool" />
+            <converters:AvatarConverter x:Key="AvatarConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:NullAvatarToTextConverter x:Key="NullAvatarToText" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout BackgroundColor="#F2F2F2" Spacing="5">
+                    <StackLayout
+                        Padding="10"
+                        BackgroundColor="White"
+                        Orientation="Horizontal">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MyProfileCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Grid
+                            ColumnSpacing="0"
+                            RowSpacing="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start">
+                            <Grid IsVisible="{Binding IsLogged}">
+                                <Label
+                                    Text="{Binding Profile.FullName, Converter={StaticResource NullAvatarToText}}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                                <pluginImageCircle:CircleImage
+                                    WidthRequest="60"
+                                    HeightRequest="60"
+                                    Aspect="AspectFill"
+                                    BorderColor="#eeeeee"
+                                    BorderThickness="2"
+                                    Source="{Binding Profile.Avatar}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                            <Grid IsVisible="{Binding IsLogged, Converter={StaticResource BoolToBoolConverter}}">
+                                <pluginImageCircle:CircleImage
+                                    WidthRequest="60"
+                                    HeightRequest="60"
+                                    Aspect="AspectFill"
+                                    BorderColor="#eeeeee"
+                                    BorderThickness="2"
+                                    Source="user_icon.jpg"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                        <Grid HorizontalOptions="StartAndExpand">
+                            <StackLayout IsVisible="{Binding IsLogged, Converter={StaticResource BoolToBoolConverter}}">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="Chào mừng đến vơi SimHere"
+                                    TextColor="#444444" />
+                                <Label
+                                    FontSize="14"
+                                    Text="Đăng nhập/Đăng kí"
+                                    TextColor="#444444" />
+                            </StackLayout>
+                            <StackLayout
+                                IsVisible="{Binding IsLogged}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Profile.FullName}"
+                                    TextColor="#444444" />
+                                <Label FontSize="14" TextColor="#444444">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Ngày tham gia: " />
+                                            <Span Text="{Binding Profile.RegisterDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </Grid>
+                        <Image
+                            HeightRequest="19"
+                            Source="forward.png"
+                            HorizontalOptions="End" />
+                    </StackLayout>
+                    <!--<StackLayout IsVisible="false" Spacing="1">
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LinkToFaceboolCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                WidthRequest="22"
+                                FontFamily="{StaticResource FontAwesomeBrands}"
+                                FontSize="20"
+                                Text="&#xf082;"
+                                TextColor="#4266B2"
+                                VerticalOptions="Center" />
+                            <Label
+                                FontSize="16"
+                                Text="Liên kết tài khoản Facebook"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LinkToGoogleCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                WidthRequest="22"
+                                FontFamily="{StaticResource FontAwesomeBrands}"
+                                FontSize="20"
+                                Text="&#xf0d4;"
+                                TextColor="#EA4334"
+                                VerticalOptions="Center" />
+                            <Label
+                                FontSize="16"
+                                Text="Liên kết tài khoản Google"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                    </StackLayout>-->
+                    <StackLayout Spacing="1">
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding MyOrdersCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="page.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Quản lý đơn hàng"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding FollowingSimCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="sim_ic.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Sim đang theo dõi"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding MySimsCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="sim_ic_2.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Sim của tôi"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            IsVisible="true"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChatCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="chat_ic.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Chat"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding FollowingUsersCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="heart_check.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Đang theo dõi"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding FollowersCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="follow_ic_2.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Người theo dõi"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="White"
+                            Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding FeedbackCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Image
+                                HeightRequest="22"
+                                Source="chat_ic.png"
+                                HorizontalOptions="Start" />
+                            <Label
+                                FontSize="16"
+                                Text="Phản hồi"
+                                TextColor="#444444"
+                                HorizontalOptions="FillAndExpand" />
+                            <Image
+                                HeightRequest="19"
+                                Source="forward.png"
+                                HorizontalOptions="End" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout
+                Margin="5"
+                AbsoluteLayout.LayoutBounds="0,1,1,64"
+                AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional"
+                Orientation="Horizontal"
+                Spacing="0"
+                HorizontalOptions="End">
+                <Frame
+                    Margin="5"
+                    Padding="0"
+                    CornerRadius="22"
+                    IsVisible="{Binding IsLogged}">
+                    <Button
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#189EFF"
+                        Command="{Binding ButtonLoginCommand}"
+                        CornerRadius="22"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf2f5;"
+                        TextColor="White" />
+                </Frame>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

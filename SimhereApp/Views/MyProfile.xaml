@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="#F2F2F2"
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+             xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             Title="Thông tin cá nhân"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             x:Class="SimhereApp.Portable.Views.MyProfile">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ShowClearButtonConverter x:Key="ShowClearButtonConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid RowSpacing="0"
+                      VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ScrollView Grid.Row="0">
+                        <StackLayout>
+                            <StackLayout Margin="0,0,0,5"
+                                         Padding="10"
+                                         BackgroundColor="White">
+                                <telerikPrimitives:RadBorder HorizontalOptions="Center"
+                                                             WidthRequest="100"
+                                                             CornerRadius="50"
+                                                             BorderThickness="1"
+                                                             BackgroundColor="#eeeeee"
+                                                             BorderColor="#444444">
+                                    <telerikPrimitives:RadBorder.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              Tapped="SelectImage_Clicked" />
+                                    </telerikPrimitives:RadBorder.GestureRecognizers>
+                                    <Grid x:Name="gridAvatar"
+                                          HeightRequest="100">
+                                        <Label x:Name="lblDefaultAvatar"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center" />
+                                    </Grid>
+                                </telerikPrimitives:RadBorder>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White"
+                                         Padding="10">
+                                <controls:FormLabelRequired Text="Họ tên" />
+                                <Entry x:Name="EntryName"
+                                       Placeholder="Họ tên"
+                                       Text=""
+                                       FontSize="16" />
+                                <controls:FormLabelRequired Text="Email" />
+                                <Entry x:Name="EntryEmail"
+                                       Placeholder="Email"
+                                       IsEnabled="false"
+                                       Text=""
+                                       FontSize="16" />
+                                <controls:FormLabelRequired Text="Số điện thoại" />
+                                <Entry x:Name="EntryPhone"
+                                       Placeholder="Số điện thoại"
+                                       Text=""
+                                       FontSize="16" />
+                                <controls:FormLabel Text="Ngày sinh" />
+                                <Grid RowSpacing="0"
+                                      ColumnSpacing="0">
+                                    <controls:NullableDatePicker x:Name="birthdayPicker"
+                                                                 NullableDate="{Binding Birthday}"
+                                                                 HorizontalOptions="FillAndExpand" />
+                                    <ImageButton Source="ic_close_black.png"
+                                                 Clicked="RemoveBirthday_Clicked"
+                                                 IsVisible="{Binding Birthday,Converter={StaticResource ShowClearButtonConverter}}"
+                                                 HeightRequest="25"
+                                                 WidthRequest="30"
+                                                 BackgroundColor="Transparent"
+                                                 Padding="7"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Center" />
+                                </Grid>
+                                <!-- Gioi tinh-->
+                                <controls:FormLabel Text="Giới tính" />
+                                <Grid RowSpacing="0"
+                                      ColumnSpacing="0">
+                                    <Picker x:Name="pickerSex"
+                                            Title="Chọn giới tính"
+                                            ItemsSource="{Binding SexOptions}"
+                                            SelectedItem="{Binding SexOption}"
+                                            FontSize="16"
+                                            ItemDisplayBinding="{Binding Name}"
+                                            HorizontalOptions="FillAndExpand" />
+                                    <ImageButton Source="ic_close_black.png"
+                                                 Clicked="RemoveSexOption_Clicked"
+                                                 IsVisible="{Binding SexOption,Converter={StaticResource ShowClearButtonConverter}}"
+                                                 HeightRequest="25"
+                                                 BackgroundColor="Transparent"
+                                                 WidthRequest="30"
+                                                 Padding="7"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Center" />
+                                </Grid>
+
+                                <controls:FormLabelRequired Text="Địa chỉ" />
+                                <Entry x:Name="EntryAddress"
+                                       Placeholder="Địa chỉ"
+                                       FontSize="16" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+                <Grid x:Name="VerifyPopup"
+                      IsVisible="false"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand">
+                    <telerikPrimitives:RadBorder CornerRadius="10"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="CenterAndExpand"
+                                                 Padding="20,10"
+                                                 Margin="20"
+                                                 BackgroundColor="White">
+                        <StackLayout>
+                            <Label Text="Mã xác thực đã được gửi tới số điện thoại. Vui lòng nhập mã xác thực :"
+                                   FontSize="16"
+                                   TextColor="#333333" />
+                            <Entry x:Name="EntryVerifyCode"
+                                   MaxLength="4"
+                                   Keyboard="Numeric"
+                                   Margin="0,10"
+                                   Placeholder="Nhập mã xác thực"
+                                   HorizontalTextAlignment="Center"
+                                   FontSize="17" />
+                            <Grid RowSpacing="0"
+                                  ColumnSpacing="5"
+                                  Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <controls:ButtonOutline x:Name="BtnConfirm"
+                                                        Clicked="BtnConfirmCode_Clicked"
+                                                        Text="Xác nhận"
+                                                        OutlineColor="Green"
+                                                        Grid.Row="0"
+                                                        Grid.Column="0" />
+                                <controls:ButtonOutline x:Name="BtnResend"
+                                                        Clicked="ResendVerify_Clicked"
+                                                        Text="Gửi lại"
+                                                        OutlineColor="Green"
+                                                        Grid.Row="0"
+                                                        Grid.Column="1" />
+                                <controls:ButtonOutline x:Name="BtnCancel"
+                                                        Clicked="CancelVerify_Clicked"
+                                                        Text="Huỷ"
+                                                        OutlineColor="Gray"
+                                                        Grid.Row="0"
+                                                        Grid.Column="2" />
+                            </Grid>
+                        </StackLayout>
+                    </telerikPrimitives:RadBorder>
+                </Grid>
+            </Grid>
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="End"
+                Spacing="0"
+                AbsoluteLayout.LayoutBounds="0,1,1,64"
+                AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional"
+                Margin="5">
+                <Frame Margin="5"
+                       Padding="0"
+                       CornerRadius="22">
+                    <Button Text="&#xf044;"
+                            FontSize="20"
+                            WidthRequest="44"
+                            HeightRequest="44"
+                            CornerRadius="22"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            BackgroundColor="#189EFF"
+                            Clicked="UpdateProfile_Clicked"
+                            TextColor="White" />
+                </Frame>
+            </StackLayout>
+            <controls:PopUpLoading AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   x:Name="gridLoading" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

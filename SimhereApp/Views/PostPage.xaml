@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="SimhereApp.Portable.Views.PostPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+             xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             Title="{Binding Title}"
+             ios:Page.UseSafeArea="true"
+             mc:Ignorable="d"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierLogoConverter x:Key="CarrierLogoConverter" />
+            <converters:NullAvatarToTextConverter x:Key="NullAvatarToText" />
+            <converters:AvatarConverter x:Key="AvatarConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+            <converters:TimeAgoConverter x:Key="TimeAgoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout>
+                    <ListView x:Name="ListViewComments"
+                              CachingStrategy="RecycleElement"
+                              HasUnevenRows="True"
+                              IsRefreshing="{Binding IsRefreshing}"
+                              ItemAppearing="Lv_Comments_ItemAppearingAsync"
+                              ItemsSource="{Binding Data}"
+                              RefreshCommand="{Binding RefreshCommand}"
+                              SelectionMode="None"
+                              SeparatorVisibility="None"
+                              >
+                        <ListView.Header>
+                            <Grid Padding="10,10,10,5" BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="70*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding MainPost.User.Id}"
+                                                              NumberOfTapsRequired="1"
+                                                              Tapped="User_Tapped"
+                                                              />
+                                    </StackLayout.GestureRecognizers>
+                                    <Grid ColumnSpacing="0" RowSpacing="0">
+                                        <Label Text="{Binding MainPost.User.FullName, Converter={StaticResource NullAvatarToText}}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               />
+                                        <pluginImageCircle:CircleImage WidthRequest="50"
+                                                                       HeightRequest="50"
+                                                                       Aspect="AspectFill"
+                                                                       BorderColor="#eeeeee"
+                                                                       BorderThickness="2"
+                                                                       Source="{Binding MainPost.User.PictureUrl}"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"
+                                                                       />
+                                    </Grid>
+                                </StackLayout>
+                                <StackLayout Grid.Row="0"
+                                             Grid.Column="1"
+                                             Orientation="Vertical"
+                                             >
+                                    <Label Grid.Row="0"
+                                           Grid.Column="1"
+                                           FontAttributes="Bold"
+                                           Text="{Binding MainPost.User.FullName}"
+                                           TextColor="Black"
+                                           />
+                                    <Label FontSize="Small" TextColor="#444444">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding MainPost.CreatedOn, StringFormat='{0:dd/MM/yyyy}'}" />
+                                                <Span Text=" - " />
+                                                <Span Text="{Binding MainPost.CreatedOn, Converter={StaticResource TimeAgoConverter}}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                                    <Label Text="{Binding MainPost.Content}" TextColor="Black" />
+                                    <BoxView HeightRequest="0.5" BackgroundColor="LightGray" />
+                                </StackLayout>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <controls:ExtendedFrame Padding="10,10,10,5" CornerRadius="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout Grid.Column="0">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer CommandParameter="{Binding User.Id}"
+                                                                          NumberOfTapsRequired="1"
+                                                                          Tapped="User_Tapped"
+                                                                          />
+                                                </StackLayout.GestureRecognizers>
+                                                <Grid ColumnSpacing="0"
+                                                      RowSpacing="0"
+                                                      HorizontalOptions="StartAndExpand"
+                                                      VerticalOptions="StartAndExpand"
+                                                      >
+                                                    <Label Text="{Binding User.FullName, Converter={StaticResource NullAvatarToText}}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"
+                                                           />
+                                                    <pluginImageCircle:CircleImage WidthRequest="40"
+                                                                                   HeightRequest="40"
+                                                                                   Aspect="AspectFill"
+                                                                                   BorderColor="#eeeeee"
+                                                                                   BorderThickness="2"
+                                                                                   Source="{Binding User.PictureUrl}"
+                                                                                   HorizontalOptions="Center"
+                                                                                   VerticalOptions="Center"
+                                                                                   />
+                                                </Grid>
+                                            </StackLayout>
+                                            <controls:ExtendedFrame Grid.Row="0"
+                                                                    Grid.Column="1"
+                                                                    Padding="5"
+                                                                    BackgroundColor="#f2f3f5"
+                                                                    >
+                                                <StackLayout>
+                                                    <StackLayout>
+                                                        <StackLayout.GestureRecognizers>
+                                                            <TapGestureRecognizer CommandParameter="{Binding User}"
+                                                                                  NumberOfTapsRequired="1"
+                                                                                  Tapped="User_Tapped"
+                                                                                  />
+                                                        </StackLayout.GestureRecognizers>
+                                                        <Label FontAttributes="Bold"
+                                                               Text="{Binding User.FullName}"
+                                                               TextColor="Black"
+                                                               HorizontalOptions="StartAndExpand"
+                                                               />
+                                                    </StackLayout>
+                                                    <StackLayout Margin="10,0,0,0" BindableLayout.ItemsSource="{Binding AttachedSims}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="25" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <StackLayout Grid.Column="0">
+                                                                        <StackLayout.GestureRecognizers>
+                                                                            <TapGestureRecognizer CommandParameter="{Binding}"
+                                                                                                  NumberOfTapsRequired="1"
+                                                                                                  Tapped="Sim_ItemTapped"
+                                                                                                  />
+                                                                        </StackLayout.GestureRecognizers>
+                                                                        <Label FontAttributes="Bold"
+                                                                               FontSize="16"
+                                                                               Text="{Binding DisplayNumber}"
+                                                                               TextColor="DarkGreen"
+                                                                               />
+                                                                        <Label FontSize="Small"
+                                                                               Text="{Binding SimNumber}"
+                                                                               TextColor="Black"
+                                                                               />
+                                                                        <Label FontSize="15"
+                                                                               Text="{Binding Price, StringFormat='{0:0,0 đ}'}"
+                                                                               TextColor="#333333"
+                                                                               />
+                                                                    </StackLayout>
+                                                                    <ImageButton Grid.Column="1"
+                                                                                 WidthRequest="25"
+                                                                                 HeightRequest="25"
+                                                                                 BackgroundColor="Transparent"
+                                                                                 Source="forward_icon.png"
+                                                                                 />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </controls:ExtendedFrame>
+                                            <StackLayout Grid.Row="1"
+                                                         Grid.Column="1"
+                                                         Orientation="Horizontal"
+                                                         HorizontalOptions="EndAndExpand"
+                                                         >
+                                                <Label FontSize="Small"
+                                                       Text="{Binding CreatedOn, Converter={StaticResource TimeAgoConverter}}"
+                                                       TextColor="#444444"
+                                                       />
+                                            </StackLayout>
+                                        </Grid>
+                                    </controls:ExtendedFrame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <!--<Button Grid.Column="0"
+                            Margin="5,0,5,5"
+                            Padding="1"
+                            BackgroundColor="{StaticResource NavigationPrimary}"
+                            Clicked="AddNewComment_Clicked"
+                            CornerRadius="10"
+                            FontAttributes="Bold"
+                            IsEnabled="{Binding IsLoadingMore, Converter={StaticResource BoolToBoolConverter}}"
+                            IsVisible="{Binding IsOwner, Converter={StaticResource BoolToBoolConverter}}"
+                            Text="Rao bán sim"
+                            TextColor="White"
+                            />-->
+                </StackLayout>
+                <StackLayout IsVisible="{Binding IsLoadingMore}"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             >
+                    <Frame WidthRequest="100"
+                           HeightRequest="50"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           >
+                        <ActivityIndicator IsRunning="{Binding IsLoadingMore}"
+                                           IsVisible="{Binding IsLoadingMore}"
+                                           HorizontalOptions="Center"
+                                           Color="#1874CD"
+                                           />
+                    </Frame>
+                </StackLayout>
+            </Grid>
+            <Frame
+                BackgroundColor="{StaticResource NavigationPrimary}"
+                IsVisible="{Binding IsOwner, Converter={StaticResource BoolToBoolConverter}}"
+                Margin="20"
+                Padding="0"
+                WidthRequest="50"
+                HeightRequest="50"
+                AbsoluteLayout.LayoutBounds="1,1"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                CornerRadius="25">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AddNewComment_Clicked" />
+                </Frame.GestureRecognizers>
+                <Label
+                    TextColor="White"
+                    Text="&#xf067;"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontSize="Default"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Frame>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

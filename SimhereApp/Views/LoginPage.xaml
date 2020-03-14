@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:SimhereApp.Portable.Controls" x:Class="SimhereApp.Portable.Views.LoginPage">
+    <Grid ColumnSpacing="0" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackLayout Padding="20,10" Spacing="10" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="FillAndExpand" BackgroundColor="#F6F6F8">
+            <controls:FormLabelRequired Text="Email/Số điện thoại" />
+            <Entry x:Name="entryUsername" Text="" Placeholder="Nhập email/số điện thoại" PlaceholderColor="Gray" TextColor="Black" Keyboard="Email" FontSize="16" />
+            <controls:FormLabelRequired Text="Mật khẩu" />
+            <Entry x:Name="entryPassword" Text="" Placeholder="Nhập mật khẩu" PlaceholderColor="Gray" TextColor="Black" IsPassword="True" FontSize="16" />
+            <Button Text="Đăng nhập" Clicked="click_login" BackgroundColor="#DF5538" TextColor="White" HeightRequest="40" FontAttributes="Bold" FontSize="16" />
+            <Button Text="Quên mật khẩu?" BackgroundColor="Transparent" TextColor="Green" Clicked="ForgotPassword_Clicked"  HeightRequest="50" Padding="3" FontSize="16" />
+            <Label Text="Hoặc đăng nhập với" TextColor="#444444" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Grid ColumnSpacing="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <ImageButton Source="fb_icon.png" Command="{Binding FacebookLoginCommand}" BackgroundColor="#3664A2" Aspect="AspectFit" CornerRadius="0" Padding="10" Grid.Column="0" Grid.Row="0" />
+                <ImageButton Source="zalo_icon.png" Clicked="ZaloLogin_Clicked" BackgroundColor="#005BE0" Aspect="AspectFit" Grid.Column="1" CornerRadius="0" Padding="10"  Grid.Row="0" />
+                <ImageButton Source="google_icon.png" Clicked="GoogleLogin_Clicked" Padding="10" BackgroundColor="White" Aspect="AspectFit" CornerRadius="0" Grid.Column="2" Grid.Row="0" />
+            </Grid>
+        </StackLayout>
+        <controls:ModelContentView x:Name="modalActivityIndicator" IsVisible="false">
+            <telerikPrimitives:RadBorder CornerRadius="10" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" Padding="10,5">
+                <StackLayout Orientation="Horizontal">
+                    <ActivityIndicator IsRunning="true" WidthRequest="22" Color="Blue" HorizontalOptions="Center" />
+                    <Label Text="Đang xử lý..." FontSize="12" VerticalOptions="Center" />
+                </StackLayout>
+            </telerikPrimitives:RadBorder>
+        </controls:ModelContentView>
+    </Grid>
+</ContentView>

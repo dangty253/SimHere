@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Phản hồi"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    x:Class="SimhereApp.Portable.Views.PhanHoiList">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PhanHoiFromUserConverter x:Key="PhanHoiFromUserConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ListView
+                x:Name="lv"
+                Grid.Row="0"
+                SeparatorVisibility="None"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing}"
+                HasUnevenRows="True"
+                SelectionMode="None"
+                ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <telerikPrimitives:RadBorder BorderThickness="0,0,0,1"
+                                                         Padding="10,5"
+                                                         BorderColor="#eeeeee">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                        <Label FontAttributes="Bold"
+                                               TextColor="Black"
+                                               FontSize="15"
+                                               HorizontalOptions="StartAndExpand"
+                                               Text="{Binding FromUser,Converter={StaticResource PhanHoiFromUserConverter}}" />
+                                        <Label Text="{Binding CreatedDate,StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                               FontSize="Small"
+                                               HorizontalOptions="End"
+                                               TextColor="#666666" />
+                                    </StackLayout>
+                                    <Label FontAttributes="Italic"
+                                           FontSize="16"
+                                           TextColor="#444444"
+                                           Text="{Binding MessageContent}" />
+                                </StackLayout>
+                            </telerikPrimitives:RadBorder>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsLoadingMore}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="25"
+                                           Color="{StaticResource NavigationPrimary}" />
+                        <StackLayout BackgroundColor="White"
+                                     Padding="10"
+                                     Margin="0,0,0,5">
+                            <controls:FormLabelRequired Text="Nội dung phản hồi" />
+                            <telerikPrimitives:RadBorder BorderColor="Silver">
+                                <Editor x:Name="EditorContent"
+                                        Placeholder="Nhập phản hồi"
+                                        PlaceholderColor="Gray"
+                                        HeightRequest="100"
+                                        MaxLength="250"
+                                        Text="{Binding Sim.Description}"
+                                        FontSize="16" />
+                            </telerikPrimitives:RadBorder>
+                            <controls:ButtonOutline Margin="0,10,0,0"
+                                                    x:Name="BtnSend"
+                                                    OutlineColor="Green"
+                                                    BackgroundColor="Green"
+                                                    TextColor="White"
+                                                    VerticalOptions="End"
+                                                    Text="Gửi phản hồi"
+                                                    Clicked="BtnSend_Clicked" />
+                        </StackLayout>
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+            <controls:PopUpLoading x:Name="gridLoading" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

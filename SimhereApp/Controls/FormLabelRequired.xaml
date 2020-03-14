@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimhereApp.Portable.Controls.FormLabelRequired">
+    <ContentView.Content>
+        <StackLayout Padding="4,5,0,0" Orientation="Horizontal" Spacing="5">
+            <Label x:Name="lbl" FontSize="14" TextColor="#444444" FontAttributes="Bold" />
+            <Label Text="*" TextColor="Red" FontSize="15" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

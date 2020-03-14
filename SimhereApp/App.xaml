@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="SimhereApp.Portable.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelCenter" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="ImgAvatarStyle" TargetType="pluginImageCircle:CircleImage">
+                <Setter Property="Aspect" Value="AspectFill" />
+                <Setter Property="BorderColor" Value="#eeeeee" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="SelectedOptionFrame" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="WidthRequest" Value="75" />
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Margin" Value="5,5,0,5" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style x:Key="UnselectedOptionFrame" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="WidthRequest" Value="75" />
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Margin" Value="5,5,0,5" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style x:Key="SelectedOptionLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="UnselectedOptionLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+            <!--<Color x:Key="NavigationPrimary">#1E5799</Color>-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="BarTextColor">White</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="{StaticResource BarTextColor}" />
+            </Style>
+            <Style x:Key="ExpanderHeaderStyle" TargetType="telerikPrimitives:ExpanderHeader">
+                <Setter Property="IndicatorColor" Value="Black" />
+                <Setter Property="IndicatorLocation" Value="End" />
+                <Setter Property="IndicatorAnimationDuration" Value="50" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BorderColor" Value="#BFC5C6" />
+            </Style>
+
+            <Style x:Key="ExpanderHeadingText" TargetType="Label">
+                <Setter Property="TextColor" Value="#444444" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            </Style>
+
+            <Style x:Key="SlideItem" TargetType="telerikPrimitives:RadBorder">
+                <Setter Property="BackgroundColor" Value="#eeeeee" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+                <Setter Property="BorderColor" Value="#e8e8e8" />
+                <Setter Property="Padding" Value="5" />
+                <!--<Setter Property="WidthRequest" Value="100" />
+                <Setter Property="HeightRequest" Value="100" />-->
+            </Style>
+
+            <Color x:Key="PostRbga">
+                <x:Arguments>
+                    <x:Double>255</x:Double>
+                    <x:Double>255</x:Double>
+                    <x:Double>255</x:Double>
+                    <x:Double>0.6</x:Double>
+                </x:Arguments>
+            </Color>
+
+            <!--  font awsome  -->
+            <OnPlatform x:Key="FontAwesomeBrands" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome5BrandsRegular.otf#Regular" />
+                <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
+                <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
+                <On Platform="iOS" Value="FontAwesome5Free-Regular" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

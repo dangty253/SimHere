@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>MinimumOSVersion</key>
+	<string>11.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sim Here</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleName</key>
+	<string>Sim Here</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Sim Here muốn truy cập máy ảnh để chụp ảnh và làm ảnh đại diện cho bạn.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sim Here muốn truy cập vào thư viện hình ảnh của bạn để lấy hình ảnh đặt làm ảnh đại diện cho bạn.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Sim Here muốn sử dụng Micro </string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Sim Here cần quyền truy cập vào thư viện hình ảnh để lưu hình ảnh của bạn.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Sim Here would like to access your calender</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Sim Here muốn sử dụng vị trí để tìm những địa chỉ ở gần bạn</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Sim Here muốn sử dụng vị trí để tìm những địa chỉ ở gần bạn</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb346816322699532</string>
+				<string>com.googleusercontent.apps.1007151502786-ak5nli0hrue9nupgiq3ncgklncj2juj1</string>
+			</array>
+			<key>CFBundleURLTypes</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>Xamarin.Auth Google PAuth</string>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>346816322699532</string>
+	<key>FacebookDisplayName</key>
+	<string>Sim Here</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
+	<key>CFBundleIdentifier</key>
+	<string>com.bsdsolutions.simhere</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome5BrandsRegular.otf</string>
+		<string>FontAwesome5Regular.otf</string>
+		<string>FontAwesome5Solid.otf</string>
+	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>3.1.2</string>
+	<key>CFBundleShortVersionString</key>
+	<string>312</string>
+</dict>
+</plist>

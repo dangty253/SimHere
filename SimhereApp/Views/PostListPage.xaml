@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimhereApp.Portable.Views.PostListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:helpers="clr-namespace:SimhereApp.Portable.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SimhereApp.Portable.ViewModels"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewModels:PostListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:PostTemplateSelector x:Key="PostTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <controls:ScrollTabOptions OptionsSource="{Binding Options}" />
+                <ListView
+                    BackgroundColor="#f2f2f2"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    ItemAppearing="ListView_ItemAppearing"
+                    ItemTemplate="{StaticResource PostTemplateSelector}"
+                    ItemsSource="{Binding Data}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    SelectionMode="None"
+                    SeparatorVisibility="None" />
+            </StackLayout>
+            <controls:PopupMenu MenuItems="{Binding MenuItems}" />
+            <controls:LoadingScreen IsLoading="{Binding IsRefreshing}" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

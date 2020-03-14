@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    Title="Chỉnh sửa"
+    x:Class="SimhereApp.Portable.Views.EditListSim">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CarrierNameConverter x:Key="CarrierNameConverter" />
+            <converters:NumberTypesListToTextConverter x:Key="NumberTypesListToTextConverter" />
+            <converters:BoolToBoolConverter x:Key="BoolToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand"
+              RowSpacing="0"
+              BackgroundColor="#F2F2F2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ListView x:Name="SimListView"
+                          Grid.Row="0"
+                          Margin="0,2,0,0"
+                          BackgroundColor="#F2F2F2"
+                          SeparatorVisibility="None"
+                          IsPullToRefreshEnabled="True"
+                          RefreshCommand="{Binding RefreshCommand}"
+                          IsRefreshing="{Binding IsRefreshing}"
+                          HasUnevenRows="True"
+                          SelectionMode="None"
+                          VerticalOptions="FillAndExpand"
+                          ItemsSource="{Binding Data}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <telerikPrimitives:RadBorder BorderColor="#cccccc"
+                                                             Margin="5,5,5,0"
+                                                             BackgroundColor="White"
+                                                             Padding="5"
+                                                             BorderThickness="1">
+                                    <StackLayout>
+                                        <StackLayout
+                                            Padding="5">
+                                            <Label Text="{Binding SimNumber}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="DarkGreen"
+                                                   VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Entry Text="{Binding DisplayNumber}"
+                                               FontSize="16" />
+
+                                        <controls:CurrencyEntry MaxValue="2000000000"
+                                                                Text="{Binding Price,Mode=TwoWay}"
+                                                                Placeholder="Giá sim" />
+
+
+                                        <telerikPrimitives:RadBorder Padding="5"
+                                                                     BorderColor="#cccccc">
+                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                          CommandParameter="{Binding}"
+                                                                          Tapped="OpenCarrierOption_Clicked" />
+                                                </StackLayout.GestureRecognizers>
+                                                <Label HorizontalOptions="StartAndExpand"
+                                                       VerticalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       TextColor="#333333"
+                                                       LineBreakMode="WordWrap"
+                                                       Text="{Binding CarrierId,Converter={StaticResource CarrierNameConverter}}" />
+                                                <ImageButton HeightRequest="25"
+                                                             WidthRequest="25"
+                                                             VerticalOptions="Center"
+                                                             BackgroundColor="Transparent"
+                                                             Source="forward_icon.png" />
+                                            </StackLayout>
+                                        </telerikPrimitives:RadBorder>
+
+                                        <telerikPrimitives:RadBorder Padding="5"
+                                                                     BorderColor="#cccccc">
+                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                          CommandParameter="{Binding}"
+                                                                          Tapped="OpenNumberTypeOptions_Clicked" />
+                                                </StackLayout.GestureRecognizers>
+                                                <Label HorizontalOptions="StartAndExpand"
+                                                       VerticalTextAlignment="Center"
+                                                       LineBreakMode="TailTruncation"
+                                                       FontSize="16"
+                                                       TextColor="#333333"
+                                                       Text="{Binding Sim_NumberTypes,Converter={StaticResource NumberTypesListToTextConverter}}" />
+                                                <ImageButton HeightRequest="25"
+                                                             WidthRequest="25"
+                                                             VerticalOptions="Center"
+                                                             BackgroundColor="Transparent"
+                                                             Source="forward_icon.png" />
+                                            </StackLayout>
+                                        </telerikPrimitives:RadBorder>
+                                    </StackLayout>
+                                </telerikPrimitives:RadBorder>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <ActivityIndicator IsRunning="{Binding IsLoadingMore}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="25"
+                                           Color="{StaticResource NavigationPrimary}" />
+                    </ListView.Footer>
+                </ListView>
+
+                <Grid VerticalOptions="End"
+                      Grid.Row="1"
+                      BackgroundColor="White"
+                      ColumnSpacing="5"
+                      Padding="5"
+                      x:Name="gridBtnGroup">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:ButtonOutline x:Name="BtnPost"
+                                            Grid.Column="0"
+                                            OutlineColor="Green"
+                                            VerticalOptions="End"
+                                            Clicked="Save_Clicked"
+                                            Text="Lưu" />
+                </Grid>
+            </Grid>
+
+
+            <StackLayout x:Name="CVNumberTypeOptions"
+                         IsVisible="false"
+                         Grid.RowSpan="2"
+                         VerticalOptions="FillAndExpand"
+                         Padding="20">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal"
+                                 Grid.Row="0"
+                                 BackgroundColor="#1E5799"
+                                 Padding="10">
+                        <Label Text="Chọn loại sim"
+                               TextColor="White"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center" />
+                        <ImageButton x:Name="BtnCloseNumberTypeModal"
+                                     Source="close.png"
+                                     Padding="5"
+                                     Clicked="CloseModalNumberTypes_Clicked"
+                                     BackgroundColor="Transparent"
+                                     HeightRequest="32"
+                                     WidthRequest="32"
+                                     Aspect="AspectFit" />
+                    </StackLayout>
+                    <ListView
+                        x:Name="lvNumberType"
+                        Grid.Row="1"
+                        HasUnevenRows="True"
+                        BackgroundColor="#ffffff"
+                        CachingStrategy="RecycleElement"
+                        ItemTapped="SelectedNumberType_Clicked"
+                        SelectionMode="None"
+                        ItemsSource="{Binding NumberTypeOptions}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="10"
+                                                 Spacing="5"
+                                                 Orientation="Horizontal">
+                                        <Image HeightRequest="26"
+                                               IsVisible="{Binding IsSelected,Converter={StaticResource BoolToBool}}"
+                                               Source="checkbox_circle.png"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center" />
+                                        <Image HeightRequest="26"
+                                               IsVisible="{Binding IsSelected}"
+                                               Source="checkbox_selected.png"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center" />
+                                        <Label Text="{Binding Name}"
+                                               FontSize="15"
+                                               TextColor="#444444"
+                                               HorizontalOptions="StartAndExpand" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Grid ColumnSpacing="0"
+                          Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <telerikInput:RadButton x:Name="btnClearSimType"
+                                                HeightRequest="40"
+                                                Grid.Column="0"
+                                                BackgroundColor="#eeeeee"
+                                                Text="Xóa"
+                                                TextColor="#333333"
+                                                Clicked="DeleteNumberType_Clicked"
+                                                CornerRadius="0" />
+                        <telerikInput:RadButton x:Name="btnClosePopupSimType"
+                                                HeightRequest="40"
+                                                Grid.Column="1"
+                                                BackgroundColor="#189EFF"
+                                                Text="Hoàn tất"
+                                                Clicked="BtnCompleteSimType_Clicked"
+                                                TextColor="#ffffff"
+                                                CornerRadius="0" />
+                    </Grid>
+                </Grid>
+            </StackLayout>
+
+            <controls:PopUpLoading x:Name="gridLoading"
+                                   Grid.RowSpan="2" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

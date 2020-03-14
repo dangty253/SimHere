@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:SimhereApp.Portable.Controls" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             Title="Import Sim" 
+             x:Class="SimhereApp.Portable.Views.ImportSim">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <Grid Padding="10">
+                    <StackLayout>
+<!--                        <controls:ButtonOutline OutlineColor="Blue" Text="Chọn tệp" />-->
+                        <controls:ButtonOutline OutlineColor="Blue" Clicked="DownloadGoogleSheetTemplate_Clicked" Text="Download Excel Template" />
+                        <controls:ButtonOutline OutlineColor="Green" Clicked="SignInGoogleDrive_Clicked" Text="Google Drive" />
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <Grid VerticalOptions="FillAndExpand" Padding="20" x:Name="modalDriveFiles" IsVisible="false">
+                <Grid BackgroundColor="White" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal" Grid.Row="0" BackgroundColor="#1E5799" Padding="10,5">
+                        <Label Text="Chọn File bạn muốn Import" TextColor="White" FontSize="15" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                        <ImageButton Clicked="HideModalDriveFiles_Clicked" Source="close.png" Padding="5" BackgroundColor="Transparent" HeightRequest="32" WidthRequest="32" Aspect="AspectFit" />
+                    </StackLayout>
+                    
+                    <ListView x:Name="ListViewDriveFiles" Grid.Row="1" ItemsSource="{Binding GoogleDriveFiles}" SeparatorVisibility="Default" SelectionMode="None" HasUnevenRows="true" CachingStrategy="RecycleElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10,5">
+                                        <Image Source="google_sheet_ic.png" VerticalOptions="Center" HeightRequest="22" WidthRequest="22" Margin="0,10,0,0" />
+                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="16" TextColor="#444444" VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                <ActivityIndicator x:Name="ListViewFileActivityIndicator" IsRunning="false" WidthRequest="20" />
+                            </StackLayout>
+                        </ListView.Footer>
+                    </ListView>
+                </Grid>
+            </Grid>
+            
+            <Grid VerticalOptions="FillAndExpand" Padding="5" x:Name="gridLoading">
+                <telerikPrimitives:RadBorder CornerRadius="10" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" Padding="10,5">
+                    <StackLayout Orientation="Horizontal">
+                        <ActivityIndicator x:Name="ActivityIndicator" IsRunning="true" WidthRequest="22" Color="Blue" HorizontalOptions="Center" />
+                        <Label Text="Đang xử lý..." FontSize="12" VerticalOptions="Center" />
+                    </StackLayout>
+                </telerikPrimitives:RadBorder>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="SimhereApp.Portable.Views.Cells.BuyingViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SimhereApp.Portable.Controls"
+    xmlns:converters="clr-namespace:SimhereApp.Portable.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pluginImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    x:Name="ControlName"
+    mc:Ignorable="d">
+    <ViewCell.View>
+        <controls:ExtendedFrame Margin="0,0,0,5" Padding="0">
+            <Grid Margin="5">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ContainerBindingContext.ItemTappedCommand, Source={Reference ControlName}}" CommandParameter="{Binding .}"/> 
+                </Grid.GestureRecognizers>
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="TagButton" TargetType="Button">
+                            <Setter Property="BackgroundColor" Value="White" />
+                            <Setter Property="TextColor" Value="Black" />
+                            <Setter Property="Padding" Value="10,0,10,0" />
+                            <Setter Property="MinimumWidthRequest" Value="75" />
+                            <Setter Property="BorderWidth" Value="1" />
+                            <Setter Property="BorderColor" Value="Black" />
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                        <converters:NullAvatarToTextConverter x:Key="NullAvatarToTextConverter" />
+                        <converters:TimeAgoConverter x:Key="TimeAgoConverter" />
+                        <converters:OptionConverter x:Key="OptionConverter" />
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label Style="{StaticResource LabelCenter}" Text="{Binding PostModel.User.FullName, Source={Reference ControlName}, Converter={StaticResource NullAvatarToTextConverter}}" />
+                    <pluginImageCircle:CircleImage Source="{Binding PostModel.User.PictureUrl, Source={Reference ControlName}}" Style="{StaticResource ImgAvatarStyle}" />
+                </Grid>
+                <StackLayout Grid.Column="1">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{Binding PostModel.User.FullName, Source={Reference ControlName}}"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="Small"
+                        Text="{Binding PostModel.CreatedOn, Source={Reference ControlName}, Converter={StaticResource TimeAgoConverter}}"
+                        TextColor="Black" />
+                </StackLayout>
+                <Label
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    Text="{Binding PostModel.Content, Source={Reference ControlName}}"
+                    TextColor="Black" />
+                <StackLayout
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center">
+                    <Button
+                        BackgroundColor="Green"
+                        BorderColor="Green"
+                        Style="{StaticResource TagButton}"
+                        Text="Cần mua"
+                        TextColor="White" />
+                    <ScrollView
+                        HorizontalScrollBarVisibility="Never"
+                        Orientation="Horizontal"
+                        VerticalScrollBarVisibility="Never">
+                        <StackLayout
+                            BindableLayout.ItemsSource="{Binding PostModel.SellingSim.Sim_NumberTypes, Source={Reference ControlName}}"
+                            Orientation="Horizontal"
+                            HorizontalOptions="StartAndExpand">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="0,0,2,0">
+                                        <Button Style="{StaticResource TagButton}" Text="{Binding ., Converter={StaticResource OptionConverter}, ConverterParameter=NumberTypeOptions}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </Grid>
+        </controls:ExtendedFrame>
+    </ViewCell.View>
+</ViewCell>
